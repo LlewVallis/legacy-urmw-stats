@@ -1,15 +1,1 @@
-[
-    {
-        "name": "Player1",
-        "trueskill": [
-            {
-                "time": 0,
-                "trueskill": 1
-            },
-            {
-                "time": 1,
-                "trueskill": 1
-            }
-        ]
-    }
-]
+[{"name":"Player1","trueskill":[{"time":0,"trueskill":1},{"time":1,"trueskill":1}]}]
