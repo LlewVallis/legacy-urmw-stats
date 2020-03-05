@@ -21,10 +21,8 @@ class LastTournamentRankings extends Component {
                     <PodiumPole name={third} rankName="Third" color={tertiaryColor} height="10vw" />
                 </div>
                 <div style={{
-                    fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
                     fontStyle: "italic",
                     marginTop: "1em",
-                    fontSize: "100%",
                 }}>
                     {dateString}
                 </div>

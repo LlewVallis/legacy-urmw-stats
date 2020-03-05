@@ -55,6 +55,11 @@ class GlobalTrueskillChart extends Component {
         ],
         labels: labels,
       },
+      options: {
+        legend: {
+          position: "bottom",
+        },
+      },
     })
   }
 }
