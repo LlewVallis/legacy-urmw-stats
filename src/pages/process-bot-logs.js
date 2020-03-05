@@ -15,7 +15,9 @@ class ProcessBotLogsPage extends Component {
 
         this.fileUploadRef = React.createRef()
 
-        this.dryRunRef = React.createRef()
+        this.state = {
+            dryRun: true,
+        }
     }
 
     render() {
@@ -33,24 +35,26 @@ class ProcessBotLogsPage extends Component {
                     padding: "0.75em",
                 }}>
                     <label htmlFor="gitHubUsername">GitHub username </label>
-                    <input ref={this.gitHubUsernameRef} name="gitHubUsername" type="text"></input>
+                    <input ref={this.gitHubUsernameRef} name="gitHubUsername" type="text" />
 
                     <br />
                     <br />
 
                     <label htmlFor="gitHubPassword">GitHub password </label>
-                    <input ref={this.gitHubPasswordRef} name="gitHubPassword" type="password"></input>
+                    <input ref={this.gitHubPasswordRef} name="gitHubPassword" type="password" />
 
                     <br />
                     <br />
 
                     <label htmlFor="dryRun">Dry run </label>
-                    <input ref={this.dryRunRef} type="checkbox" defaultChecked></input>
+                    <input onChange={e => this.setState({
+                        dryRun: e.target.checked
+                    })} type="checkbox" defaultChecked />
 
                     <br />
                     <br />
 
-                    <input ref={this.fileUploadRef} type="file"></input>
+                    <input ref={this.fileUploadRef} type="file" />
 
                     <br />
                     <br />
@@ -79,7 +83,7 @@ class ProcessBotLogsPage extends Component {
         if (file !== undefined) {
             const data = await this.readDataFromFile(file)
 
-            if (this.dryRunRef.current.value) {
+            if (this.state.dryRun) {
                 this.sendDryRunData(data)
             } else {
                 await this.uploadData(data, gitHubUsername, gitHubPassword)
