@@ -4,14 +4,28 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import trueskillData from "../trueskill-data.json"
-import TrueskillChart from "../components/trueskill-chart"
+import GlobalTrueskillChart from "../components/global-trueskill-chart"
+import LastTournamentRankings from "../components/last-tournament-rankings"
 
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <h1>Heading</h1>
-    <TrueskillChart data={trueskillData} />
+    <div style={{
+      textAlign: "center",
+    }}>
+      <h1>Last tournament rankings</h1>
+      <LastTournamentRankings data={trueskillData}/>
+
+      <Breaker />
+      
+      <h1>Server wide trueskill</h1>
+      <GlobalTrueskillChart data={trueskillData} />
+    </div>
   </Layout>
 )
+
+const Breaker = () => <div style={{
+  height: "5em",
+}} />
 
 export default IndexPage
