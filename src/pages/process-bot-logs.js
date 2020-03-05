@@ -182,6 +182,7 @@ class ProcessBotLogsPage extends Component {
         const team1String = /\s*((\w+\s*\([^)]+\)\s*,?\s*)+)\s+vs\s+/i.exec(
           content
         )[1]
+
         const team2String = /\s+vs\s+((\w+\s*\([^)]+\)\s*,?\s*)+)/i.exec(
           content
         )[1]
@@ -200,8 +201,8 @@ class ProcessBotLogsPage extends Component {
             contentWithoutDifferences
           )
 
-          player.newTrueskill = newRatingGroups[2]
-          player.newRd = newRatingGroups[3]
+          player.newTrueskill = parseInt(newRatingGroups[2])
+          player.newRd = parseInt(newRatingGroups[3])
         }
 
         let winner = null
@@ -367,8 +368,8 @@ class ProcessBotLogsPage extends Component {
     for (const groups of playerMatchStrings) {
       playerMatches.push({
         name: groups[1],
-        oldTrueskill: groups[2],
-        oldRd: groups[3],
+        oldTrueskill: parseInt(groups[2]),
+        oldRd: parseInt(groups[3]),
       })
     }
 
