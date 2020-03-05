@@ -4,6 +4,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import GitHub from "github-api"
+import StringSimilarity from "string-similarity"
 
 class ProcessBotLogsPage extends Component {
     constructor(props) {
@@ -140,20 +141,155 @@ class ProcessBotLogsPage extends Component {
                 })
             // Match
             } else if (/^(\s*-\s*\n)?\s*(\w+\s*\([^)]+\)\s*,?\s*)+\s+vs\s+(\w+\s*\([^)]+\)\s*,?\s*)+/i.test(content)) {
-                const team1 = /\s*((\w+\s*\([^)]+\)\s*,?\s*)+)\s+vs\s+/i.exec(content)[1]
-                const team2 = /\s+vs\s+((\w+\s*\([^)]+\)\s*,?\s*)+)/i.exec(content)[1]
+                const team1String = /\s*((\w+\s*\([^)]+\)\s*,?\s*)+)\s+vs\s+/i.exec(content)[1]
+                const team2String = /\s+vs\s+((\w+\s*\([^)]+\)\s*,?\s*)+)/i.exec(content)[1]
+
+                const team1 = this.cleanMatchTeamList(team1String)
+                const team2 = this.cleanMatchTeamList(team2String)
+
+                for (const player of team1.concat(team2)) {
+                    const contentWithoutDifferences = content.replace(/[+-]\d+/g, "")
+
+                    const newRatingGroupsRegex = new RegExp(`new(.|\\n)*?${player.name}.*?(\\d+).*?(\\d+)`, "i")
+                    const newRatingGroups = newRatingGroupsRegex.exec(contentWithoutDifferences)
+
+                    player.newTrueskill = newRatingGroups[2]
+                    player.newRd = newRatingGroups[3]
+                }
+
+                let winner = null
+
+                if (/\w+\s+and\s+\w+\s+draw/i.test(content)) {
+                    winner = "draw"
+                } else {
+                    const winnerString = /(\w+)\s+wins/i.exec(content)[1]
+                    if (winnerString === "1") {
+                        winner = "team1"
+                    } else if (winnerString === "2") {
+                        winner = "team2"
+                    } else if (team1.some(player => winnerString.includes(player.name))) {
+                        winner = "team1"
+                    } else if (team2.some(player => winnerString.includes(player.name))) {
+                        winner = "team2"
+                    } else {
+                        throw new Error(`failed to match player ${winnerString}`)
+                    }
+                }
 
                 matchData.push({
-                    team1: this.cleanMatchTeamList(team1),
-                    team2: this.cleanMatchTeamList(team2),
+                    time: content.timestamp,
+                    team1: team1,
+                    team2: team2,
+                    winner: winner,
                 })
             }
         }
 
+        const playerData = {};
+
+        for (const match of matchData) {
+            for (const player of match.team1.concat(match.team2)) {
+                if (playerData[player.name] === undefined) {
+                    playerData[player.name] = {
+                        wins: 0,
+                        losses: 0,
+                        draws: 0,
+
+                        winsAgainst: {},
+                        lossesAgainst: {},
+                        drawsAgainst: {},
+
+                        tournamentFirsts: 0,
+                        tournamentSeconds: 0,
+                        tournamentThirds: 0,
+
+                        trueskill: 1250,
+                        maxTrueskill: 1250,
+                        rd: 100,
+                    }
+                }
+
+                playerData[player.name].trueskill = player.newTrueskill
+                playerData[player.name].rd = player.newRd
+
+                if (player.newTrueskill > playerData[player.name].maxTrueskill) {
+                    playerData[player.name].maxTrueskill = player.newTrueskill
+                }
+            }
+
+            if (match.winner === "draw") {
+                this.updateDrawTotalsForTeam1(playerData, match.team1, match.team2)
+                this.updateDrawTotalsForTeam1(playerData, match.team2, match.team1)
+            } else if (match.winner === "team1") {
+                this.updateWinTotalsForTeam1(playerData, match.team1, match.team2)
+                this.updateLossTotalsForTeam1(playerData, match.team2, match.team1)
+            } else if (match.winner === "team2") {
+                this.updateWinTotalsForTeam1(playerData, match.team2, match.team1)
+                this.updateLossTotalsForTeam1(playerData, match.team1, match.team2)
+            } else {
+                throw new Error(`invalid match status: ${match.winner}`)
+            }
+        }
+
+        const allNames = Object.keys(playerData)
+
+        for (const tournament of tournamentData) {
+            tournament.first = this.correctTournamentPlayerNames(tournament.first, allNames)
+            tournament.second = this.correctTournamentPlayerNames(tournament.second, allNames)
+            tournament.third = this.correctTournamentPlayerNames(tournament.third, allNames)
+
+            for (const player of tournament.first) {
+                playerData[player].tournamentFirsts += 1
+            }
+
+            for (const player of tournament.second) {
+                playerData[player].tournamentSeconds += 1
+            }
+
+            for (const player of tournament.third) {
+                playerData[player].tournamentThirds += 1
+            }
+        }
+
         return {
+            playerData: playerData,
             matchData: matchData,
             tournamentData: tournamentData,
-        };
+        }
+    }
+
+    correctTournamentPlayerNames(playerList, allNames) {
+        return playerList.map(name => StringSimilarity.findBestMatch(name, allNames).bestMatch.target)
+    }
+
+    updateDrawTotalsForTeam1(playerData, team1, team2) {
+        for (const player of team1) {
+            playerData[player.name].draws += 1
+            for (const opponent of team2) {
+                const previousDraws = playerData[player.name].drawsAgainst[opponent.name]
+                playerData[player.name].drawsAgainst[opponent.name] = (previousDraws === undefined ? 0 : previousDraws) + 1
+            }
+        }
+    }
+
+    updateWinTotalsForTeam1(playerData, team1, team2) {
+        for (const player of team1) {
+            playerData[player.name].wins += 1
+            for (const opponent of team2) {
+                const previousWins = playerData[player.name].winsAgainst[opponent.name]
+                playerData[player.name].winsAgainst[opponent.name] = (previousWins === undefined ? 0 : previousWins) + 1
+            }
+        }
+    }
+
+    updateLossTotalsForTeam1(playerData, team1, team2) {
+        for (const player of team1) {
+            playerData[player.name].losses += 1
+            for (const opponent of team2) {
+                const previousLosses = playerData[player.name].lossesAgainst[opponent.name]
+                playerData[player.name].lossesAgainst[opponent.name] = (previousLosses === undefined ? 0 : previousLosses) + 1
+            }
+        }
     }
 
     cleanMatchTeamList(names) {
@@ -168,8 +304,8 @@ class ProcessBotLogsPage extends Component {
         for (const groups of playerMatchStrings) {
             playerMatches.push({
                 name: groups[1],
-                previousTrueskill: groups[2],
-                previousRd: groups[3],
+                oldTrueskill: groups[2],
+                oldRd: groups[3],
             })
         }
 
