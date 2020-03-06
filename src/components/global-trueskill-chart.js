@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import { primaryColor, secondaryColor } from "../theme"
 import Chart from "chart.js"
+import { interpolateWarm } from "d3-scale-chromatic"
 
 class GlobalTrueskillChart extends Component {
   constructor(props) {
@@ -26,16 +26,16 @@ class GlobalTrueskillChart extends Component {
     playerData.sort((a, b) => b.trueskill - a.trueskill)
 
     const trueskills = []
-    const maxTrueskills = []
     const labels = []
+    const colors = []
 
     for (let i = 0; i < playerData.length; i++) {
       const player = playerData[i]
 
       trueskills.push(player.trueskill)
-      maxTrueskills.push(player.maxTrueskill)
       labels.push(player.name)
 
+      colors.push(interpolateWarm((i + 1) / playerData.length * 0.75))
     }
 
     new Chart(canvas, {
@@ -43,13 +43,8 @@ class GlobalTrueskillChart extends Component {
       data: {
         datasets: [
           {
-            data: maxTrueskills,
-            backgroundColor: primaryColor,
-            label: "Highest Trueskill",
-          },
-          {
             data: trueskills,
-            backgroundColor: secondaryColor,
+            backgroundColor: colors,
             label: "Current Trueskill",
           },
         ],
@@ -57,7 +52,15 @@ class GlobalTrueskillChart extends Component {
       },
       options: {
         legend: {
-          position: "bottom",
+          display: false,
+        },
+        scales: {
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: "Trueskill",
+            },
+          }],
         },
       },
     })

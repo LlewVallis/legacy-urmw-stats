@@ -225,7 +225,7 @@ class ProcessBotLogsPage extends Component {
         }
 
         matchData.push({
-          time: content.timestamp,
+          time: timestamp,
           team1: team1,
           team2: team2,
           winner: winner,
