@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import Chart from "chart.js"
+import ChartErrorBars from "chartjs-plugin-error-bars"
 import { interpolateWarm } from "d3-scale-chromatic"
 
 class GlobalTrueskillChart extends Component {
@@ -26,8 +27,11 @@ class GlobalTrueskillChart extends Component {
     playerData.sort((a, b) => b.trueskill - a.trueskill)
 
     const trueskills = []
+    const errors = {}
     const labels = []
     const colors = []
+
+    let minPoint = Infinity
 
     for (let i = 0; i < playerData.length; i++) {
       const player = playerData[i]
@@ -35,7 +39,13 @@ class GlobalTrueskillChart extends Component {
       trueskills.push(player.trueskill)
       labels.push(player.name)
 
-      colors.push(interpolateWarm((i + 1) / playerData.length * 0.75))
+      errors[player.name] = { plus: player.rd, minus: -player.rd }
+
+      colors.push(interpolateWarm((i + 1) / playerData.length * 0.75 * 0.8 + 0.2))
+
+      if (minPoint > player.trueskill - player.rd) {
+        minPoint = player.trueskill - player.rd
+      }
     }
 
     new Chart(canvas, {
@@ -44,6 +54,8 @@ class GlobalTrueskillChart extends Component {
         datasets: [
           {
             data: trueskills,
+            borderColor: "#666",
+            errorBars: errors,
             backgroundColor: colors,
             label: "Current Trueskill",
           },
@@ -60,9 +72,13 @@ class GlobalTrueskillChart extends Component {
               display: true,
               labelString: "Trueskill",
             },
+            ticks: {
+              suggestedMin: minPoint,
+            },
           }],
         },
       },
+      plugins: [ChartErrorBars],
     })
   }
 }
