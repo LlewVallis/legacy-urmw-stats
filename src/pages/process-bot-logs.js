@@ -4,7 +4,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import GitHub from "github-api"
-import StringSimilarity from "string-similarity"
+import FuseJs from "fuse.js"
 
 class ProcessBotLogsPage extends Component {
   constructor(props) {
@@ -279,20 +279,32 @@ class ProcessBotLogsPage extends Component {
       }
     }
 
-    const allNames = Object.keys(playerData)
+    const allPlayers = Object.keys(playerData)
+    const fuse = new FuseJs(allPlayers, {
+      shouldSort: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [],
+    })
 
     for (const tournament of tournamentData) {
       tournament.first = this.correctTournamentPlayerNames(
         tournament.first,
-        allNames
+        fuse,
+        allPlayers,
       )
       tournament.second = this.correctTournamentPlayerNames(
         tournament.second,
-        allNames
+        fuse,
+        allPlayers,
       )
       tournament.third = this.correctTournamentPlayerNames(
         tournament.third,
-        allNames
+        fuse,
+        allPlayers,
       )
 
       for (const player of tournament.first) {
@@ -315,10 +327,16 @@ class ProcessBotLogsPage extends Component {
     }
   }
 
-  correctTournamentPlayerNames(playerList, allNames) {
-    return playerList.map(
-      name => StringSimilarity.findBestMatch(name, allNames).bestMatch.target
-    )
+  correctTournamentPlayerNames(playerList, fuse, allPlayers) {
+    return playerList.map(name => {
+      const index = fuse.search(name)[0]
+
+      if (index === undefined) {
+        throw new Error(`couldn't match name ${name} in tournament`)
+      }
+
+      return allPlayers[index]
+    })
   }
 
   updateDrawTotalsForTeam1(playerData, team1, team2) {

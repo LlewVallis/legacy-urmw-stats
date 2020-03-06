@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-import StringSimilarity from "string-similarity"
+import FuseJS from "fuse.js"
 
 import { secondaryColor } from "../theme"
 
@@ -38,23 +38,21 @@ class PlayerSelection extends Component {
         e.preventDefault()
 
         const fuzzyPlayerName = this.playerInputRef.current.value
-        if (/^\s*$/.test(fuzzyPlayerName)) {
-            return
-        }
-
         const availablePlayerNames = Object.keys(this.props.data.playerData)
 
-        let playerName = availablePlayerNames.find(name => name.toLowerCase().startsWith(fuzzyPlayerName.toLowerCase()))
+        const nameIndex = new FuseJS(availablePlayerNames, {
+            shouldSort: true,
+            threshold: 0.6,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 32,
+            minMatchCharLength: 1,
+            keys: [],
+        }).search(fuzzyPlayerName)[0]
 
-        if (playerName === undefined) {
-            playerName = availablePlayerNames.find(name => name.toLowerCase().includes(fuzzyPlayerName.toLowerCase()))
+        if (nameIndex !== undefined) {
+            this.props.onPlayerNameChange(availablePlayerNames[nameIndex])
         }
-
-        if (playerName === undefined) {
-            playerName = StringSimilarity.findBestMatch(fuzzyPlayerName, availablePlayerNames).bestMatch.target
-        }
-
-        this.props.onPlayerNameChange(playerName)
     }
 }
 

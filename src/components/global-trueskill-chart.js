@@ -41,7 +41,7 @@ class GlobalTrueskillChart extends Component {
 
       errors[player.name] = { plus: player.rd, minus: -player.rd }
 
-      colors.push(interpolateWarm((i + 1) / playerData.length * 0.75 * 0.8 + 0.2))
+      colors.push(interpolateWarm((i + 1) / playerData.length * 0.6 * 0.6 + 0.4))
 
       if (minPoint > player.trueskill - player.rd) {
         minPoint = player.trueskill - player.rd
