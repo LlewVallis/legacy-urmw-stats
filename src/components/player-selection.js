@@ -40,9 +40,9 @@ class PlayerSelection extends Component {
         const fuzzyPlayerName = this.playerInputRef.current.value
         const availablePlayerNames = Object.keys(this.props.data.playerData)
 
-        const nameIndex = new FuseJS(availablePlayerNames, {
+        const index  = new FuseJS(availablePlayerNames, {
             shouldSort: true,
-            threshold: 0.6,
+            threshold: 0.3,
             location: 0,
             distance: 100,
             maxPatternLength: 32,
@@ -50,8 +50,8 @@ class PlayerSelection extends Component {
             keys: [],
         }).search(fuzzyPlayerName)[0]
 
-        if (nameIndex !== undefined) {
-            this.props.onPlayerNameChange(availablePlayerNames[nameIndex])
+        if (index !== undefined) {
+            this.props.onPlayerNameChange(availablePlayerNames[index])
         }
     }
 }

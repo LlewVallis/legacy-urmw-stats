@@ -6,10 +6,23 @@ class TopOpponentsChart extends Component {
   constructor(props) {
     super(props)
     this.canvasRef = React.createRef()
+
+    this.state = {
+      shouldRender: false,
+    }
   }
 
   render() {
-    return <canvas ref={this.canvasRef} />
+    return (
+      <div style={{
+        display: this.state.shouldRender ? "block" : "none",
+        marginBottom: "5em",
+      }}>
+        <h1>Top opponents</h1>
+
+        <canvas ref={this.canvasRef} />
+      </div>
+    )
   }
 
   getDatasetsAndLabels() {
@@ -56,15 +69,17 @@ class TopOpponentsChart extends Component {
         data: values,
         backgroundColor: colors,
         label: "Losses against",
+        barPercentage: opponents.length / 4 * 0.9,
       }],
       labels: labels,
+      shouldRender: labels.length > 0,
     }
   }
 
   componentDidMount() {
     const canvas = this.canvasRef.current
 
-    const { datasets, labels } = this.getDatasetsAndLabels()
+    const { datasets, labels, shouldRender } = this.getDatasetsAndLabels()
 
     this.chart = new Chart(canvas, {
 			type: "bar",
@@ -90,14 +105,22 @@ class TopOpponentsChart extends Component {
         },
       },
     })
+
+    if (this.state.shouldRender !== shouldRender) {
+      this.setState({ shouldRender: shouldRender })
+    }
   }
 
   componentDidUpdate() {
-    const { datasets, labels } = this.getDatasetsAndLabels()
+    const { datasets, labels, shouldRender } = this.getDatasetsAndLabels()
 
     this.chart.data.datasets = datasets
     this.chart.data.labels = labels
     this.chart.update()
+
+    if (this.state.shouldRender !== shouldRender) {
+      this.setState({ shouldRender: shouldRender })
+    }
   }
 }
 

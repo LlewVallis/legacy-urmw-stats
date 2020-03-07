@@ -6,10 +6,23 @@ class TrueskillHistoryChart extends Component {
   constructor(props) {
     super(props)
     this.canvasRef = React.createRef()
+
+    this.state = {
+      shouldRender: false,
+    }
   }
 
   render() {
-    return <canvas ref={this.canvasRef} />
+    return (
+      <div style={{
+          display: this.state.shouldRender ? "block" : "none",
+          marginBottom: "5em",
+      }}>
+        <h1>Trueskill history</h1>
+
+        <canvas ref={this.canvasRef} />
+      </div>
+    )
   }
 
   getDatasets() {
@@ -26,6 +39,12 @@ class TrueskillHistoryChart extends Component {
         }
       }
     }
+
+    data.push({
+      time: new Date(),
+      trueskill: this.props.data.playerData[this.props.name].trueskill,
+      rd: this.props.data.playerData[this.props.name].rd,
+    })
 
     data.reverse()
 
@@ -56,27 +75,30 @@ class TrueskillHistoryChart extends Component {
       })
     }
 
-    return [{
-      data: trueskillData,
-      showLine: true,
-      fill: false,
-      yAxisID: "trueskill",
-      label: "Trueskill",
-      borderColor: primaryColor,
-    }, {
-      data: rdData,
-      showLine: true,
-      fill: false,
-      yAxisID: "rd",
-      label: "Rating Deviation",
-      borderColor: secondaryColor,
-    }]
+    return {
+      datasets: [{
+        data: trueskillData,
+        showLine: true,
+        fill: false,
+        yAxisID: "trueskill",
+        label: "Trueskill",
+        borderColor: primaryColor,
+      }, {
+        data: rdData,
+        showLine: true,
+        fill: false,
+        yAxisID: "rd",
+        label: "Rating Deviation",
+        borderColor: secondaryColor,
+      }],
+      shouldRender: data.length > 1,
+    }
   }
 
   componentDidMount() {
     const canvas = this.canvasRef.current
 
-    const datasets = this.getDatasets()
+    const { datasets, shouldRender } = this.getDatasets()
 
     let maxTrueskill = -Infinity
     let minTrueskill = Infinity
@@ -132,11 +154,21 @@ class TrueskillHistoryChart extends Component {
         },
       },
     })
+
+    if (this.state.shouldRender !== shouldRender) {
+      this.setState({ shouldRender: shouldRender })
+    }
   }
 
   componentDidUpdate() {
-    this.chart.data.datasets = this.getDatasets()
+    const { datasets, shouldRender } = this.getDatasets()
+
+    this.chart.data.datasets = datasets
     this.chart.update()
+
+    if (this.state.shouldRender !== shouldRender) {
+      this.setState({ shouldRender: shouldRender })
+    }
   }
 }
 

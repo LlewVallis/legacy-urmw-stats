@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import Chart from "chart.js"
 import { interpolateWarm } from "d3-scale-chromatic"
 
-class GlobalWinRateChart extends Component {
+class GlobalTournamentWinChart extends Component {
   constructor(props) {
     super(props)
     this.canvasRef = React.createRef()
@@ -25,23 +25,17 @@ class GlobalWinRateChart extends Component {
   componentDidMount() {
     const canvas = this.canvasRef.current
 
-    const wins = {
-      Draw: 0,
-    }
+    const wins = { }
 
-    for (const match of this.props.data.matchData) {
-      if (match.winner === "draw") {
-        wins["Draw"] += 1
-      } else {
-        const winners = match[match.winner]
+    for (const tournament of this.props.data.tournamentData) {
+      const winners = tournament.first
 
-        for (const { name } of winners) {
-          if (wins[name] === undefined) {
-            wins[name] = 0
-          }
-
-          wins[name] += 1 / winners.length
+      for (const name of winners) {
+        if (wins[name] === undefined) {
+          wins[name] = 0
         }
+
+        wins[name] += 1 / winners.length
       }
     }
 
@@ -84,4 +78,4 @@ class GlobalWinRateChart extends Component {
   }
 }
 
-export default GlobalWinRateChart
+export default GlobalTournamentWinChart

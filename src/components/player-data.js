@@ -18,6 +18,51 @@ class PlayerData extends Component {
 
         const player = (playerName === null) ? null : this.props.data.playerData[playerName]
 
+        let rankIndex = 1
+        if (player !== null) {
+            for (const [, { trueskill }] of Object.entries(this.props.data.playerData)) {
+                if (trueskill > player.trueskill) {
+                    rankIndex++
+                }
+            }
+        }
+
+        let rank = null
+        if (player !== null) {
+            if (player.rd > 75) {
+                rank = "Unranked"
+            } else if (player.trueskill >= 1600) {
+                if (rankIndex === 1) {
+                    rank = "Grand champion"
+                } else {
+                    rank = "Champion"
+                }
+            } else if (player.trueskill >= 1510) {
+                rank = "Diamond"
+            } else if (player.trueskill >= 1430) {
+                rank = "Platinum"
+            } else if (player.trueskill >= 1350) {
+                rank = "Gold"
+            } else if (player.trueskill >= 1260) {
+                rank = "Silver"
+            } else {
+                rank = "Bronze"
+            }
+        }
+
+        let rankIndexString = player === null ? null : rankIndex.toString()
+        if (player !== null) {
+            if (rankIndexString.endsWith("1")) {
+                rankIndexString += "st"
+            } else if (rankIndexString.endsWith("2")) {
+                rankIndexString += "nd"
+            } else if (rankIndexString.endsWith("3")) {
+                rankIndexString += "rd"
+            } else {
+                rankIndexString += "th"
+            }
+        }
+
         let streak = null
         let streakType = null
         if (playerName !== null) {
@@ -58,14 +103,16 @@ class PlayerData extends Component {
 
                 <PlayerSelection onPlayerNameChange={name => this.setState({ playerName: name })} data={this.props.data} />
 
-                <div style={{ height: "1em" }} />
-
-                {(playerName == null) ? null : (
-                    <div>
+                {(playerName === null) ? null : (
+                    <div style={{
+                        marginTop: "1em",
+                    }}>
                         <FigureSet>
                             <Figure name="Current trueskill" value={player.trueskill} />
                             <Figure name="Peak trueskill" value={player.maxTrueskill} />
                             <Figure name="Current rating deviation" value={player.rd} />
+                            <Figure name="Rank" value={rank} />
+                            <Figure name="Ranking" value={rankIndexString} />
                         </FigureSet>
 
                         <Rule />
@@ -93,18 +140,12 @@ class PlayerData extends Component {
                             padding: "3em",
                             borderRadius: "0.5em",
                         }}>
-                            <h1>Trueskill history</h1>
                             <TrueskillHistoryChart name={playerName} data={this.props.data} />
 
-                            <Breaker />
+                            <TopOpponentsChart playerData={player} />
 
                             <h1>Win rate</h1>
                             <WinRateChart playerData={player} />
-
-                            <Breaker />
-
-                            <h1>Top opponents</h1>
-                            <TopOpponentsChart playerData={player} />
                         </div>
                     </div>
                 )}

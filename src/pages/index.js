@@ -6,7 +6,7 @@ import SEO from "../components/seo"
 import trueskillData from "../trueskill-data.json"
 import GlobalTrueskillChart from "../components/global-trueskill-chart"
 import LastTournamentRankings from "../components/last-tournament-rankings"
-import GlobalWinRateChart from "../components/global-win-rate-chart"
+import GlobalTournamentWinRateChart from "../components/global-tournament-win-rate-chart"
 import PlayerData from "../components/player-data"
 import { primaryColor } from "../theme"
 
@@ -29,7 +29,7 @@ class IndexPage extends Component {
 
             <h1>What is this?</h1>
             <p>
-              Welcome to URMW Stats, an unofficial site dedicated tracking statistics from ranked missile wars matches and tournaments.
+              Welcome to URMW Stats, an unofficial site dedicated tracking statistics from ranked Missile Wars matches and tournaments.
               URMW Stats parses the <code>#trueskill-urmwbot</code> channel in order to provide up to date figures and charts for your consumption.
               For feature requests and bug reports, contact <code>Llew Vallis#5734</code> on Discord.
             </p>
@@ -46,8 +46,8 @@ class IndexPage extends Component {
 
             <Breaker />
 
-            <h1>Global win rates</h1>
-            <GlobalWinRateChart data={trueskillData} />
+            <h1>Global tournament win rates</h1>
+            <GlobalTournamentWinRateChart data={trueskillData} />
 
             <Breaker />
           </div>
