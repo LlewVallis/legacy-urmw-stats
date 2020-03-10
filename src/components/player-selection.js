@@ -29,7 +29,7 @@ class PlayerSelection extends Component {
                     border: "none",
                     borderRadius: "0.2em",
                     cursor: "pointer",
-                }} type="submit">Apply</button>
+                }} type="submit">Search</button>
             </form>
         )
     }

@@ -98,7 +98,7 @@ class PlayerData extends Component {
         return (
             <div>
                 <h1>
-                    {(playerName === null) ? "Search players" : `${playerName}'s stats`}
+                    {(playerName === null) ? "Player info" : `${playerName}'s stats`}
                 </h1>
 
                 <PlayerSelection onPlayerNameChange={name => this.setState({ playerName: name })} data={this.props.data} />
@@ -108,9 +108,10 @@ class PlayerData extends Component {
                         marginTop: "1em",
                     }}>
                         <FigureSet>
-                            <Figure name="Current trueskill" value={player.trueskill} />
+                            <Figure name="Trueskill" value={player.trueskill} />
+                            <Figure name="Rating deviation" value={player.rd} />
                             <Figure name="Peak trueskill" value={player.maxTrueskill} />
-                            <Figure name="Current rating deviation" value={player.rd} />
+                            <Figure name="Raw skill" value={player.trueskill + 3 * player.rd} />
                             <Figure name="Rank" value={rank} />
                             <Figure name="Ranking" value={rankIndexString} />
                         </FigureSet>

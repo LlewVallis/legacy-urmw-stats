@@ -9,6 +9,7 @@ import LastTournamentRankings from "../components/last-tournament-rankings"
 import GlobalTournamentWinRateChart from "../components/global-tournament-win-rate-chart"
 import PlayerData from "../components/player-data"
 import { primaryColor } from "../theme"
+import MatchData from "../components/match-data"
 
 class IndexPage extends Component {
   render() {
@@ -22,7 +23,6 @@ class IndexPage extends Component {
             style={{
               margin: `0 auto`,
               maxWidth: 960,
-              padding: `0 1.0875rem 1.45rem`,
             }}
           >
             <Breaker />
@@ -66,6 +66,17 @@ class IndexPage extends Component {
 
               <Breaker />
             </div>
+          </div>
+
+          <div
+            style={{
+              margin: `0 auto`,
+              maxWidth: 960,
+            }}
+          >
+            <Breaker />
+
+            <MatchData data={trueskillData} />
           </div>
         </div>
       </Layout>
