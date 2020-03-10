@@ -75,9 +75,9 @@ class MatchData extends Component {
             generateTrueskillInfo(team1Lose, team2Win, team2WinDeltas)
             generateTrueskillInfo(team1Draw, team2Draw, drawDeltas)
 
-            team1WinChance = trueskillEnv.winProbability(team1Ratings, team2Ratings)
-            team2WinChance = trueskillEnv.winProbability(team2Ratings, team1Ratings)
             drawChance = trueskillEnv.quality([team1Ratings, team2Ratings])
+            team1WinChance = trueskillEnv.winProbability(team1Ratings, team2Ratings) - drawChance / 2
+            team2WinChance = trueskillEnv.winProbability(team2Ratings, team1Ratings) - drawChance / 2
         }
 
         return (
@@ -171,7 +171,7 @@ class MatchData extends Component {
                             padding: "3em",
                             borderRadius: "0.5em",
                         }}>
-                            <h1>Outcome prediction</h1>
+                            <h1>Game prediction</h1>
 
                             <MatchOutcomePredictionChart team1Chance={team1WinChance} team2Chance={team2WinChance} drawChance={drawChance} />
                         </div>

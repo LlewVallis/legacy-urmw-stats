@@ -28,7 +28,7 @@ class MatchOutcomePredictionChart extends Component {
     componentDidMount() {
         const canvas = this.canvasRef.current
 
-        const labels = ["Team 1 wins", "Team 2 wins", "Draw"]
+        const labels = ["Team 1 dominates", "Team 2 dominates", "Even match"]
 
         this.chart = new Chart(canvas, {
             type: "doughnut",

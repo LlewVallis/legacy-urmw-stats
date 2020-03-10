@@ -28,10 +28,12 @@ class IndexPage extends Component {
             <Breaker />
 
             <h1>What is this?</h1>
-            <p>
+            <p style={{
+              textAlign: "justify"
+            }}>
               Welcome to URMW Stats, an unofficial site dedicated tracking statistics from ranked Missile Wars matches and tournaments.
               URMW Stats parses the <code>#trueskill-urmwbot</code> channel in order to provide up to date figures and charts for your consumption.
-              For feature requests and bug reports, contact <code>Llew Vallis#5734</code> on Discord.
+              For feature requests and bug reports, contact <code>Llew Vallis#5734</code> on Discord, or submit an issue to the <a href="https://github.com/LlewVallis/urmw-stats">GitHub repository</a>.
             </p>
 
             <Breaker />

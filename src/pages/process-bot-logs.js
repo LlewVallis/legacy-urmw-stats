@@ -6,6 +6,8 @@ import SEO from "../components/seo"
 import GitHub from "github-api"
 import FuseJs from "fuse.js"
 
+import playerRenames from "../player-renames.json"
+
 class ProcessBotLogsPage extends Component {
   constructor(props) {
     super(props)
@@ -224,6 +226,17 @@ class ProcessBotLogsPage extends Component {
           }
         }
 
+        const applyRenames = team => {
+          for (const player of team) {
+            if (playerRenames[player.name] !== undefined) {
+              player.name = playerRenames[player.name]
+            }
+          }
+        }
+
+        applyRenames(team1)
+        applyRenames(team2)
+
         matchData.push({
           time: timestamp,
           team1: team1,
@@ -279,7 +292,7 @@ class ProcessBotLogsPage extends Component {
       }
     }
 
-    const allPlayers = Object.keys(playerData)
+    const allPlayers = Object.keys(playerData).concat(Object.keys(playerRenames))
     const fuse = new FuseJs(allPlayers, {
       shouldSort: true,
       threshold: 0.6,
@@ -328,14 +341,19 @@ class ProcessBotLogsPage extends Component {
   }
 
   correctTournamentPlayerNames(playerList, fuse, allPlayers) {
-    return playerList.map(name => {
-      const index = fuse.search(name)[0]
+    return playerList.map(fuzzyName => {
+      const index = fuse.search(fuzzyName)[0]
 
       if (index === undefined) {
-        throw new Error(`couldn't match name ${name} in tournament`)
+        throw new Error(`couldn't match name ${fuzzyName} in tournament`)
       }
 
-      return allPlayers[index]
+      const name = allPlayers[index]
+      if (name in playerRenames) {
+        return playerRenames[name]
+      } else {
+        return name
+      }
     })
   }
 
