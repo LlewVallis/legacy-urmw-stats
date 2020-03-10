@@ -13,7 +13,7 @@ class TeamSelection extends Component {
             <input style={{
                 margin: "0 0.5em",
                 height: "2em",
-            }} onChange={() => this.onChange()} ref={this.playerInputRef} type="text" placeholder="Player names..." />
+            }} onChange={() => this.onChange()} ref={this.playerInputRef} type="text" placeholder="Player names..." autoComplete="off" />
         )
     }
 

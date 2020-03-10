@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import TeamSelection from "./team-selection"
 import { Rating, TrueSkill } from "ts-trueskill"
-import MatchOutcomePredictionChart from "./match-outcome-prediction-chart"
 
 class MatchData extends Component {
     constructor(props) {
@@ -32,9 +31,7 @@ class MatchData extends Component {
         let team2WinDeltas = []
         let drawDeltas = []
 
-        let team1WinChance = null
-        let team2WinChance = null
-        let drawChance = null
+        let quality = null
 
         if (team1 !== null && team2 !== null) {
             const createRatings = team => team.map(name => {
@@ -75,9 +72,7 @@ class MatchData extends Component {
             generateTrueskillInfo(team1Lose, team2Win, team2WinDeltas)
             generateTrueskillInfo(team1Draw, team2Draw, drawDeltas)
 
-            drawChance = trueskillEnv.quality([team1Ratings, team2Ratings])
-            team1WinChance = trueskillEnv.winProbability(team1Ratings, team2Ratings) - drawChance / 2
-            team2WinChance = trueskillEnv.winProbability(team2Ratings, team1Ratings) - drawChance / 2
+            quality = (trueskillEnv.quality([team1Ratings, team2Ratings]) * 100).toFixed(0)
         }
 
         return (
@@ -135,6 +130,12 @@ class MatchData extends Component {
                     <div style={{
                         marginTop: "5em",
                     }}>
+                        <FigureSet>
+                            <Figure name="Match quality" value={quality} />
+                        </FigureSet>
+                        
+                        <Rule />
+
                         <h3 style={{
                             fontSize: "110%",
                             marginBottom: "0.5em",
@@ -162,19 +163,6 @@ class MatchData extends Component {
                         <FigureSet>
                             {drawDeltas}
                         </FigureSet>
-
-                        <Breaker />
-
-                        <div style={{
-                            backgroundColor: "white",
-                            color: "rgba(0, 0, 0, 0.8)",
-                            padding: "3em",
-                            borderRadius: "0.5em",
-                        }}>
-                            <h1>Game prediction</h1>
-
-                            <MatchOutcomePredictionChart team1Chance={team1WinChance} team2Chance={team2WinChance} drawChance={drawChance} />
-                        </div>
                     </div>
                 )}
             </div>
@@ -185,10 +173,6 @@ class MatchData extends Component {
     e.preventDefault()
   }
 }
-
-const Breaker = () => <div style={{
-  height: "5em",
-}} />
 
 const Rule = () => (
     <hr style={{

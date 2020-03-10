@@ -16,7 +16,7 @@ class PlayerSelection extends Component {
                 <input style={{
                     margin: "0 0.5em",
                     height: "2em",
-                }} ref={this.playerInputRef} type="text" placeholder="Player name..." />
+                }} ref={this.playerInputRef} type="text" placeholder="Player name..." autoComplete="off" />
             </form>
         )
     }
