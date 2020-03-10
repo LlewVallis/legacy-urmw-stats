@@ -32,7 +32,7 @@ class MatchData extends Component {
         let team2WinDeltas = []
         let drawDeltas = []
 
-        if (team1 !== null) {
+        if (team1 !== null && team2 !== null) {
             const createRatings = team => team.map(name => {
                 const { trueskill, rd } = data.playerData[name]
                 return new Rating(trueskill + 3 * rd, rd)
@@ -74,13 +74,13 @@ class MatchData extends Component {
 
         return (
             <div>
-                <h1>{team1 === null ? "Match info" : (() =>
+                <h1>{(team1 === null || team2 === null) ? "Match info" : (() =>
                     `${team1.join(", ")} vs ${team2.join(", ")}`
                 )()}</h1>
 
                 <form style={{
                     fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
-                }} onSubmit={e => this.onTeamSubmit(e)}>
+                }} onSubmit={e => this.onSubmit(e)}>
                     <div style={{
                         display: "flex",
                         marginTop: "3em",
@@ -92,9 +92,11 @@ class MatchData extends Component {
 
                         <div>
                             <h3>Team 1</h3>
-                            <TeamSelection onPlayerNameChange={names => this.setState({
-                                enteredTeam1: names,
-                            })} data={data} />
+                            <TeamSelection onPlayerNameChange={names => {
+                                this.setState({
+                                    team1: names,
+                                })
+                            }} data={data} />
                         </div>
 
                         <div style={{
@@ -108,29 +110,20 @@ class MatchData extends Component {
 
                         <div>
                             <h3>Team 2</h3>
-                            <TeamSelection onPlayerNameChange={names => this.setState({
-                                enteredTeam2: names,
-                            })} data={data} />
+                            <TeamSelection onPlayerNameChange={names => {
+                                this.setState({
+                                    team2: names,
+                                })
+                            }} data={data} />
                         </div>
 
                         <div style={{
                             flexGrow: "1",
                         }} />
                     </div>
-
-                    <button style={{
-                        margin: "0 0.5em",
-                        height: "2em",
-                        backgroundColor: primaryColor,
-                        color: "white",
-                        fontWeight: "bold",
-                        border: "none",
-                        borderRadius: "0.2em",
-                        cursor: "pointer",
-                    }} type="submit">Apply</button>
                 </form>
 
-                {team1 === null ? <div /> : (
+                {(team1 === null || team2 === null) ? <div /> : (
                     <div style={{
                         marginTop: "5em",
                     }}>
@@ -167,22 +160,15 @@ class MatchData extends Component {
         )
     }
 
-  onTeamSubmit(e) {
+  onSubmit(e) {
     e.preventDefault()
-
-    if (this.state.enteredTeam1 !== null && this.state.enteredTeam2 !== null) {
-        this.setState({
-            team1: this.state.enteredTeam1,
-            team2: this.state.enteredTeam2,
-        })
-    }
   }
 }
 
 const Rule = () => (
     <hr style={{
         width: "50%",
-        backgroundColor: "black",
+        backgroundColor: "white",
         margin: "2em auto",
     }} />
 )

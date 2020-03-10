@@ -68,15 +68,22 @@ class IndexPage extends Component {
             </div>
           </div>
 
-          <div
-            style={{
-              margin: `0 auto`,
-              maxWidth: 960,
-            }}
-          >
-            <Breaker />
+          <div style={{
+            backgroundColor: "#b0416f",
+            color: "white",
+          }}>
+            <div
+              style={{
+                margin: `0 auto`,
+                maxWidth: 960,
+              }}
+            >
+              <Breaker />
 
-            <MatchData data={trueskillData} />
+              <MatchData data={trueskillData} />
+
+              <Breaker />
+            </div>
           </div>
         </div>
       </Layout>
