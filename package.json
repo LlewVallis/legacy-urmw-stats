@@ -14,10 +14,12 @@
     "gatsby-plugin-offline": "^3.0.38",
     "gatsby-plugin-react-helmet": "^3.1.23",
     "github-api": "^3.3.0",
+    "jmespath": "^0.15.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-helmet": "^5.2.1",
+    "react-json-view": "^1.19.1",
     "ts-trueskill": "^2.5.4",
     "typescript": "^3.8.3"
   },

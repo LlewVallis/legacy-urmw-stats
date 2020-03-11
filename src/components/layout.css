@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Righteous|Ubuntu+Mono&display=swap');
+
+input[type="text"] {
+  font-family: 'Ubuntu Mono';
+}
 
 html {
   font-family: sans-serif;
