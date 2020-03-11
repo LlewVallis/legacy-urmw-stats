@@ -63,6 +63,19 @@ class PlayerData extends Component {
             }
         }
 
+        let isTiedForRank = false
+        if (player !== null) {
+            for (const [name, { trueskill }] of Object.entries(this.props.data.playerData)) {
+                if (trueskill === player.trueskill && name !== playerName) {
+                    isTiedForRank = true
+                }
+            }
+        }
+
+        if (isTiedForRank) {
+            rankIndexString += " (tied)"
+        }
+
         let streak = null
         let streakType = null
         if (playerName !== null) {
