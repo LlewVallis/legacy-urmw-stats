@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import TeamSelection from "./team-selection"
 import { Rating, TrueSkill } from "ts-trueskill"
+import MatchHistoryChart from "./match-history-chart"
 
 class MatchData extends Component {
     constructor(props) {
@@ -163,6 +164,8 @@ class MatchData extends Component {
                         <FigureSet>
                             {drawDeltas}
                         </FigureSet>
+
+                        <MatchHistoryChart team1={team1} team2={team2} data={data} />
                     </div>
                 )}
             </div>

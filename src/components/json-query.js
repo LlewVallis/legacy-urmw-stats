@@ -95,7 +95,7 @@ class JsonQuery extends Component {
                     padding: "3em",
                     borderRadius: "0.5em",
                     textAlign: "left",
-                        fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+                    fontFamily: 'Ubuntu Mono',
                 }}>
                     <JSONTree data={viewed} invertTheme={true} hideRoot={true} theme={{
                         extend: theme,
