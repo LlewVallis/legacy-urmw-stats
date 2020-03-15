@@ -87,7 +87,12 @@ class PlayerData extends Component {
 
                 let currentType = ""
                 if (match.winner === "draw") {
-                    currentType = "Draw"
+                    if (match.team1.some(({ name }) => name === playerName)
+                            || match.team2.some(({ name }) => name === playerName)) {
+                        currentType = "Draw"
+                    } else {
+                        continue
+                    }
                 } else if (match[match.winner].some(({ name }) => name === playerName)) {
                     currentType = "Win"
                 } else {
