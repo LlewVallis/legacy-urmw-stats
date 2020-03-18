@@ -34,6 +34,8 @@ class MatchData extends Component {
 
         let quality = null
 
+        let incomputable = false
+
         if (team1 !== null && team2 !== null) {
             const createRatings = team => team.map(name => {
                 const { trueskill, rd } = data.playerData[name]
@@ -62,18 +64,22 @@ class MatchData extends Component {
                 }
             }
 
-            const team1Ratings = createRatings(team1)
-            const team2Ratings = createRatings(team2)
+            try {
+                const team1Ratings = createRatings(team1)
+                const team2Ratings = createRatings(team2)
 
-            const [ team1Win, team2Lose ] = trueskillEnv.rate([team1Ratings, team2Ratings], [0, 1])
-            const [ team1Lose, team2Win ] = trueskillEnv.rate([team1Ratings, team2Ratings], [1, 0])
-            const [ team1Draw, team2Draw ] = trueskillEnv.rate([team1Ratings, team2Ratings], [0, 0])
+                const [ team1Win, team2Lose ] = trueskillEnv.rate([team1Ratings, team2Ratings], [0, 1])
+                const [ team1Lose, team2Win ] = trueskillEnv.rate([team1Ratings, team2Ratings], [1, 0])
+                const [ team1Draw, team2Draw ] = trueskillEnv.rate([team1Ratings, team2Ratings], [0, 0])
 
-            generateTrueskillInfo(team1Win, team2Lose, team1WinDeltas)
-            generateTrueskillInfo(team1Lose, team2Win, team2WinDeltas)
-            generateTrueskillInfo(team1Draw, team2Draw, drawDeltas)
+                generateTrueskillInfo(team1Win, team2Lose, team1WinDeltas)
+                generateTrueskillInfo(team1Lose, team2Win, team2WinDeltas)
+                generateTrueskillInfo(team1Draw, team2Draw, drawDeltas)
 
-            quality = (trueskillEnv.quality([team1Ratings, team2Ratings]) * 100).toFixed(0)
+                quality = (trueskillEnv.quality([team1Ratings, team2Ratings]) * 100).toFixed(0)
+            } catch (e) {
+                incomputable = true
+            }
         }
 
         return (
@@ -127,47 +133,71 @@ class MatchData extends Component {
                     </div>
                 </form>
 
-                {(team1 === null || team2 === null) ? <div /> : (
+                {incomputable ? <div style={{
+                    fontFamily: 'Ubuntu Mono',
+                }}>
+                    <br />
+
                     <div style={{
-                        marginTop: "5em",
+                        transform: "rotate(1.5deg)"
                     }}>
-                        <FigureSet>
-                            <Figure name="Match quality" value={quality} />
-                        </FigureSet>
-                        
-                        <Rule />
-
-                        <h3 style={{
-                            fontSize: "110%",
-                            marginBottom: "0.5em",
-                        }}>If team 1 wins</h3>
-                        <FigureSet>
-                            {team1WinDeltas}
-                        </FigureSet>
-
-                        <Rule />
-
-                        <h3 style={{
-                            fontSize: "110%",
-                            marginBottom: "0.5em",
-                        }}>If team 2 wins</h3>
-                        <FigureSet>
-                            {team2WinDeltas}
-                        </FigureSet>
-
-                        <Rule />
-
-                        <h3 style={{
-                            fontSize: "110%",
-                            marginBottom: "0.5em",
-                        }}>If both teams draw</h3>
-                        <FigureSet>
-                            {drawDeltas}
-                        </FigureSet>
-
-                        <MatchHistoryChart team1={team1} team2={team2} data={data} />
+                        <em>HTML tags <strong>lea͠ki̧n͘g fr̶ǫm ̡yo͟ur eye͢s̸ ̛l̕ik͏e liq</strong>uid p</em>ain, the song of re̸gular expre
+                        <s>ssion parsing&nbsp;</s>will exti<em>nguish the voices of mor<strong>tal man from the sp</strong>here I can see it can you see ̲͚̖͔̙î̩́t̲͎̩̱͔́̋̀ it is beautiful t</em>he f
+                        <code>inal snuf</code>fing o<em>f the lie<strong>s of Man ALL IS LOŚ͖̩͇̗̪̏̈́T A</strong></em><strong>LL IS L</strong>OST th<em>e pon̷y he come</em>s he c̶̮om
+                        <s>es he co</s><strong>
+                            <s>me</s>s t<em>he</em> ich</strong>or permeat<em>es al</em>l MY FAC<em>E MY FACE ᵒh god n<strong>o NO NOO̼</strong></em><strong>OO N</strong>Θ stop t<em>he an*̶͑̾̾̅ͫ͏̙̤g͇̫͛͆̾ͫ̑͆l͖͉̗̩̳̟̍ͫͥͨ</em>e̠̅s
+                        <code>&nbsp;͎a̧͈͖r̽̾̈́͒͑e</code> n<strong>ot rè̑ͧ̌aͨl̘̝̙̃ͤ͂̾̆ ZA̡͊͠͝LGΌ ISͮ̂҉̯͈͕̹̘̱ T</strong>O͇̹̺ͅƝ̴ȳ̳ TH̘<strong>Ë͖́̉ ͠P̯͍̭O̚N̐Y̡ H̸̡̪̯ͨ͊̽̅̾̎Ȩ̬̩̾͛ͪ̈́̀́͘ ̶̧̨̱̹̭̯ͧ̾ͬC̷̙̲̝͖ͭ̏ͥͮ͟Oͮ͏̮̪̝͍M̲̖͊̒ͪͩͬ̚̚͜Ȇ̴̟̟͙̞ͩ͌͝</strong>S̨̥̫͎̭ͯ̿̔̀ͅ
                     </div>
-                )}
+
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                    Maybe try a <i>sane</i> query next time?
+                </div> :
+                    (team1 === null || team2 === null) ? <div /> : (
+                        <div style={{
+                            marginTop: "5em",
+                        }}>
+                            <FigureSet>
+                                <Figure name="Match quality" value={quality} />
+                            </FigureSet>
+                            
+                            <Rule />
+
+                            <h3 style={{
+                                fontSize: "110%",
+                                marginBottom: "0.5em",
+                            }}>If team 1 wins</h3>
+                            <FigureSet>
+                                {team1WinDeltas}
+                            </FigureSet>
+
+                            <Rule />
+
+                            <h3 style={{
+                                fontSize: "110%",
+                                marginBottom: "0.5em",
+                            }}>If team 2 wins</h3>
+                            <FigureSet>
+                                {team2WinDeltas}
+                            </FigureSet>
+
+                            <Rule />
+
+                            <h3 style={{
+                                fontSize: "110%",
+                                marginBottom: "0.5em",
+                            }}>If both teams draw</h3>
+                            <FigureSet>
+                                {drawDeltas}
+                            </FigureSet>
+
+                            <MatchHistoryChart team1={team1} team2={team2} data={data} />
+                        </div>
+                    )
+                }
             </div>
         )
     }

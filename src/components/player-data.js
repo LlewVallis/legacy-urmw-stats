@@ -20,8 +20,8 @@ class PlayerData extends Component {
 
         let rankIndex = 1
         if (player !== null) {
-            for (const [, { trueskill }] of Object.entries(this.props.data.playerData)) {
-                if (trueskill > player.trueskill) {
+            for (const [opponentName, { trueskill }] of Object.entries(this.props.data.playerData)) {
+                if (trueskill > player.trueskill && opponentName !== "Diffy") {
                     rankIndex++
                 }
             }
@@ -122,6 +122,18 @@ class PlayerData extends Component {
                 <PlayerSelection onPlayerNameChange={name => this.setState({ playerName: name })} data={this.props.data} />
 
                 {(playerName === null) ? null : (
+                    playerName === "Diffy" ? (
+                        <div style={{
+                            marginTop: "1em",
+                        }}>
+                            <FigureSet>
+                                <Figure name="Trueskill" value={player.trueskill} />
+                                <Figure name="Rating deviation" value={player.rd} />
+                                <Figure name="Rank" value={"Grander champion"} />
+                                <Figure name="Ranking" value={"0th"} />
+                            </FigureSet>
+                        </div>
+                    ) : (
                     <div style={{
                         marginTop: "1em",
                     }}>
@@ -167,7 +179,7 @@ class PlayerData extends Component {
                             <WinRateChart playerData={player} />
                         </div>
                     </div>
-                )}
+                ))}
             </div>
         )
     }

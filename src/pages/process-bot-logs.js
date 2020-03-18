@@ -246,7 +246,22 @@ class ProcessBotLogsPage extends Component {
       }
     }
 
-    const playerData = {}
+    const playerData = {
+      "Diffy": {
+        wins: 0,
+        losses: 0,
+        draws: 0,
+        trueskill: 9001,
+        rd: 0,
+        maxTrueskill: 9001,
+        tournamentFirsts: 0,
+        tournamentSeconds: 0,
+        tournamentThirds: 0,
+        winsAgainst: {},
+        lossesAgainst: {},
+        drawsAgainst: {},
+      }
+    }
 
     for (const match of matchData) {
       for (const player of match.team1.concat(match.team2)) {

@@ -18,10 +18,12 @@ class GlobalTrueskillChart extends Component {
 
     const playerData = []
     for (const [name, data] of Object.entries(this.props.data.playerData)) {
-      playerData.push({
-        name: name,
-        ...data,
-      })
+      if (name !== "Diffy") {
+        playerData.push({
+          name: name,
+          ...data,
+        })
+      }
     }
 
     playerData.sort((a, b) => b.trueskill - a.trueskill)
