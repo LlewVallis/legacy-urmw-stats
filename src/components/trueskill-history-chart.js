@@ -103,7 +103,11 @@ class TrueskillHistoryChart extends Component {
     let maxTrueskill = -Infinity
     let minTrueskill = Infinity
 
-    for (const player of Object.values(this.props.data.playerData)) {
+    for (const [name, player] of Object.entries(this.props.data.playerData)) {
+      if (name === "Diffy") {
+        continue
+      }
+
       if (player.trueskill > maxTrueskill) {
         maxTrueskill = player.trueskill
       }
