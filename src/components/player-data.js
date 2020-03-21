@@ -52,7 +52,9 @@ class PlayerData extends Component {
 
         let rankIndexString = player === null ? null : rankIndex.toString()
         if (player !== null) {
-            if (rankIndexString.endsWith("1")) {
+            if (rankIndexString.length === 2 && rankIndexString.startsWith("1")) {
+                rankIndexString += "th"
+            } else if (rankIndexString.endsWith("1")) {
                 rankIndexString += "st"
             } else if (rankIndexString.endsWith("2")) {
                 rankIndexString += "nd"
