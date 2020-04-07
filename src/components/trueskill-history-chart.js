@@ -52,7 +52,7 @@ class TrueskillHistoryChart extends Component {
       const nextTime = data[i - 1].time
       const currentTime = data[i].time
 
-      if (nextTime - currentTime < 1000 * 60 * 60 * 6) {
+      if (nextTime - currentTime < 1000 * 60 * 60 * 12) {
         data.splice(i, 1)
         i--
       }
@@ -83,6 +83,7 @@ class TrueskillHistoryChart extends Component {
         yAxisID: "trueskill",
         label: "Trueskill",
         borderColor: primaryColor,
+        lineTension: 0,
       }, {
         data: rdData,
         showLine: true,
@@ -90,6 +91,7 @@ class TrueskillHistoryChart extends Component {
         yAxisID: "rd",
         label: "Rating Deviation",
         borderColor: secondaryColor,
+        lineTension: 0,
       }],
       shouldRender: data.length > 1,
     }
