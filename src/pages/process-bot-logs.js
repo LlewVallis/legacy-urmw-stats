@@ -12,8 +12,7 @@ class ProcessBotLogsPage extends Component {
   constructor(props) {
     super(props)
 
-    this.gitHubUsernameRef = React.createRef()
-    this.gitHubPasswordRef = React.createRef()
+    this.gitHubTokenRef = React.createRef()
 
     this.fileUploadRef = React.createRef()
 
@@ -40,20 +39,10 @@ class ProcessBotLogsPage extends Component {
             padding: "0.75em",
           }}
         >
-          <label htmlFor="gitHubUsername">GitHub username </label>
+          <label htmlFor="gitHubToken">GitHub token</label>
           <input
-            ref={this.gitHubUsernameRef}
-            name="gitHubUsername"
-            type="text"
-          />
-
-          <br />
-          <br />
-
-          <label htmlFor="gitHubPassword">GitHub password </label>
-          <input
-            ref={this.gitHubPasswordRef}
-            name="gitHubPassword"
+            ref={this.gitHubTokenRef}
+            name="gitHubToken"
             type="password"
           />
 
@@ -98,8 +87,7 @@ class ProcessBotLogsPage extends Component {
   }
 
   async performSubmission() {
-    const gitHubUsername = this.gitHubUsernameRef.current.value
-    const gitHubPassword = this.gitHubPasswordRef.current.value
+    const gitHubToken = this.gitHubTokenRef.current.value
     const file = this.fileUploadRef.current.files[0]
 
     if (file !== undefined) {
@@ -108,7 +96,7 @@ class ProcessBotLogsPage extends Component {
       if (this.state.dryRun) {
         this.sendDryRunData(data)
       } else {
-        await this.uploadData(data, gitHubUsername, gitHubPassword)
+        await this.uploadData(data, gitHubToken)
       }
     } else {
       throw new Error("no file was selected")
@@ -432,10 +420,9 @@ class ProcessBotLogsPage extends Component {
     return trimmed.split(/\s*,\s*/)
   }
 
-  async uploadData(data, username, password) {
+  async uploadData(data, token) {
     const api = new GitHub({
-      username: username,
-      password: password,
+      token: token,
     })
 
     const repo = api.getRepo("LlewVallis", "urmw-stats")
