@@ -34,6 +34,7 @@ class GlobalTrueskillChart extends Component {
     const colors = []
 
     let minPoint = Infinity
+    let maxPoint = 0
 
     for (let i = 0; i < playerData.length; i++) {
       const player = playerData[i]
@@ -47,6 +48,10 @@ class GlobalTrueskillChart extends Component {
 
       if (minPoint > player.trueskill - player.rd) {
         minPoint = player.trueskill - player.rd
+      }
+
+      if (maxPoint < player.trueskill + player.rd) {
+        maxPoint = player.trueskill + player.rd
       }
     }
 
@@ -76,6 +81,7 @@ class GlobalTrueskillChart extends Component {
             },
             ticks: {
               suggestedMin: minPoint,
+              suggestedMax: maxPoint,
             },
           }],
         },
