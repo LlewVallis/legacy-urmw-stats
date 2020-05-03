@@ -147,15 +147,17 @@ class ProcessBotLogsPage extends Component {
     for (const { timestamp, content } of messageData.messages) {
       // Tournament podium
       if (/^\s*\**\s*result(s?)\s*\**\s*\n/i.test(content)) {
-        const firstNames = /first(\s*place)?\s*:?\s*(\w+(\s*,\s*\w+)?)/i.exec(
+        const firstNames = /first(\s*place)?\s*:?\s*(\w+(\s*[,&]\s*\w+)?)/i.exec(
           content
         )[2]
-        const secondNames = /second(\s*place)?\s*:?\s*(\w+(\s*,\s*\w+)?)/i.exec(
+        const secondNames = /second(\s*place)?\s*:?\s*(\w+(\s*[,&]\s*\w+)?)/i.exec(
           content
         )[2]
-        const thirdNames = /third(\s*place)?\s*:?\s*(\w+(\s*,\s*\w+)?)/i.exec(
+        const thirdNames = /third(\s*place)?\s*:?\s*(\w+(\s*[,&]\s*\w+)?)/i.exec(
           content
         )[2]
+
+        console.log(firstNames, secondNames, thirdNames)
 
         tournamentData.push({
           time: timestamp,
@@ -417,7 +419,7 @@ class ProcessBotLogsPage extends Component {
 
   cleanResultTeamList(names) {
     const trimmed = names.trim()
-    return trimmed.split(/\s*,\s*/)
+    return trimmed.split(/\s*[,&]\s*/)
   }
 
   async uploadData(data, token) {
