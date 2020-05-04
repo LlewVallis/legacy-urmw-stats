@@ -32,11 +32,19 @@ class IndexPage extends Component {
             <p style={{
               textAlign: "justify"
             }}>
-              Welcome to URMW Stats, an unofficial site dedicated tracking statistics from ranked Missile Wars matches and tournaments.
+              Welcome to URMW Stats, a (mostly) unofficial site dedicated tracking statistics from ranked Missile Wars matches and tournaments.
               URMW Stats parses the <code>#trueskill-urmwbot</code> channel in order to provide up to date figures and charts for your consumption.
               For feature requests and bug reports, contact <code>Llew Vallis#5734</code> on Discord, or submit an issue to the <a href="https://github.com/LlewVallis/urmw-stats" style={{
                 color: "rgba(0, 0, 0, 0.8)",
               }}>GitHub repository</a>.
+            </p>
+
+            <h3>Data currency diclaimer</h3>
+            <p style={{
+              textAlign: "justify"
+            }}>
+              Since the site does not have any special access to Muller Corner and due to various technical contraints, all of the data presented within is not necessarily up-to-date.
+              Whilst the process for updating the website is semi-automatic, it is a lengthy one and is done manually at will.
             </p>
 
             <Breaker />

@@ -88,6 +88,10 @@ class MatchData extends Component {
                     `${team1.join(", ")} vs ${team2.join(", ")}`
                 )()}</h1>
 
+                <p>
+                    May yield incorrect results if player data is outdated.
+                </p>
+
                 <form style={{
                     fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
                 }} onSubmit={e => this.onSubmit(e)}>
