@@ -82,8 +82,12 @@ class GlobalTrueskillChart extends Component {
             ticks: {
               suggestedMin: minPoint,
               suggestedMax: maxPoint,
-              fontSize: "1",
             },
+          }],
+          xAxes: [{
+            ticks: {
+              autoSkip: false,
+            }
           }],
         },
       },
