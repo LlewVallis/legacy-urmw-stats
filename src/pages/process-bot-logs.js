@@ -146,7 +146,7 @@ class ProcessBotLogsPage extends Component {
 
     for (const { timestamp, content } of messageData.messages) {
       // Tournament podium
-      if (/^\s*\**\s*result(s?)\s*\**\s*\n/i.test(content)) {
+      if (/\s*\**\s*result(s?)\s*\**\s*\n/i.test(content)) {
         const firstNames = /first(\s*place)?\s*:?\s*(\w+(\s*[,&]\s*\w+)?)/i.exec(
           content
         )[2]
@@ -167,7 +167,7 @@ class ProcessBotLogsPage extends Component {
         })
         // Match
       } else if (
-        /^(\s*-\s*\n)?\s*(\w+\s*\([^)]+\)\s*,?\s*)+\s+vs\s+(\w+\s*\([^)]+\)\s*,?\s*)+/i.test(
+        /(\s*-\s*\n)?\s*(\w+\s*\([^)]+\)\s*,?\s*)+\s+vs\s+(\w+\s*\([^)]+\)\s*,?\s*)+/i.test(
           content
         )
       ) {
