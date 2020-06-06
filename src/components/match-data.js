@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import TeamSelection from "./team-selection"
 import { Rating, TrueSkill } from "ts-trueskill"
 import MatchHistoryChart from "./match-history-chart"
+import { Link } from "gatsby"
 
 class MatchData extends Component {
     constructor(props) {
@@ -146,7 +147,7 @@ class MatchData extends Component {
                         transform: "rotate(1.5deg)"
                     }}>
                         <em>HTML tags <strong>lea͠ki̧n͘g fr̶ǫm ̡yo͟ur eye͢s̸ ̛l̕ik͏e liq</strong>uid p</em>ain, the song of re̸gular expre
-                        <s>ssion parsing&nbsp;</s>will exti<em>nguish the voices of mor<strong>tal man from the sp</strong>here I can see it can you see ̲͚̖͔̙î̩́t̲͎̩̱͔́̋̀ it is beautiful t</em>he f
+                        <s>ssion parsing&nbsp;</s>will exti<em>nguish the <Link to="/pokedex/">POKEDEX</Link> of mor<strong>tal man from the sp</strong>here I can see it can you see ̲͚̖͔̙î̩́t̲͎̩̱͔́̋̀ it is beautiful t</em>he f
                         <code>inal snuf</code>fing o<em>f the lie<strong>s of Man ALL IS LOŚ͖̩͇̗̪̏̈́T A</strong></em><strong>LL IS L</strong>OST th<em>e pon̷y he come</em>s he c̶̮om
                         <s>es he co</s><strong>
                             <s>me</s>s t<em>he</em> ich</strong>or permeat<em>es al</em>l MY FAC<em>E MY FACE ᵒh god n<strong>o NO NOO̼</strong></em><strong>OO N</strong>Θ stop t<em>he an*̶͑̾̾̅ͫ͏̙̤g͇̫͛͆̾ͫ̑͆l͖͉̗̩̳̟̍ͫͥͨ</em>e̠̅s
