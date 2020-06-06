@@ -131,9 +131,49 @@ class PlayerData extends Component {
                             <FigureSet>
                                 <Figure name="Trueskill" value={player.trueskill} />
                                 <Figure name="Rating deviation" value={player.rd} />
+                                <Figure name="Peak trueskill" value="It's over 9000!!!" />
+                                <Figure name="Raw skill" value="NaN" />
                                 <Figure name="Rank" value={"Grander champion"} />
                                 <Figure name="Ranking" value={"0th"} />
                             </FigureSet>
+
+                            <Rule />
+
+                            <FigureSet>
+                                <Figure name="Times placed first" value="java.lang.ArithmeticException" />
+                                <Figure name="Times placed second" value={0} />
+                                <Figure name="Times placed third" value={0} />
+                            </FigureSet>
+
+                            <Rule />
+
+                            <FigureSet>
+                                <Figure name="Total wins" value="Too many" />
+                                <Figure name="Total losses" value={0} />
+                                <Figure name="Total draws" value={0} />
+                                <Figure name={"Win streak"} value={"More than you'll ever get noob"} />
+                            </FigureSet>
+
+                            <Breaker />
+
+                            <div style={{
+                                backgroundColor: "white",
+                                color: "rgba(0, 0, 0, 0.8)",
+                                padding: "3em",
+                                borderRadius: "0.5em",
+                            }}>
+                                <h1>Trueskill history</h1>
+                                9001, as it was in the beginning, is now, and ever shall be.
+                                <Breaker />
+
+                                <h1>Top opponents</h1>
+                                Funny meme bro.
+                                <Breaker />
+
+                                <h1>Win rate</h1>
+                                Yes.
+                                <br />
+                            </div>
                         </div>
                     ) : (
                     <div style={{
