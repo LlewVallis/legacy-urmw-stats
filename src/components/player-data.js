@@ -117,7 +117,16 @@ class PlayerData extends Component {
 
         return (
             <div>
-                <h1>
+                <h1 
+                    onClick={() => {
+                        if (playerName === "UnWin") {
+                            window.location.href = "/doggos"
+                        }
+                    }}
+                    style={{
+                        cursor: playerName === "UnWin" ? "pointer" : null,
+                    }}
+                >
                     {(playerName === null) ? "Player info" : `${playerName}'s stats`}
                 </h1>
 
