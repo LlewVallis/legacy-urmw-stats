@@ -12,8 +12,6 @@ import { primaryColor } from "../theme"
 import MatchData from "../components/match-data"
 import JsonQuery from "../components/json-query"
 
-import { Link } from "gatsby"
-
 class IndexPage extends Component {
   render() {
     return (
