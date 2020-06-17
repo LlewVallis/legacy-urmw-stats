@@ -51,6 +51,9 @@ class PokedexPage extends Component {
             Also known as the deafener, his signature quote is "Would you like to be deafened?". However, the staff have embraced his will for removing the hearing of players. Llewv has become a very good deafener, as his anti-kb makes people scream so loud they deafen themselves. Therefore, Drakan has awarded Llewv with the title of "Spice".
           </div>
 
+          <br/>
+          <br/>
+
           <h1>Overdue Cuppa</h1>
           <div>
             The peculiar entity Leiti, also known as "LeitiLP", "Leit", "Yeiti", "Yeti", "Latie", "Leetee", "CAG's alt", or "Hacker", is arguably one of the best, if not the best Missile Wars players on the planet. With one swoop in his LeitiLP series, your Leit portal will be Yeiti'd into nothing as if he's a Yeti. For tournaments, he is a Latie, always arriving late to make his opponents more restless and easier to beat, all the while Zor mispronounces his name as "Leetee". CAG, having part of their face in his skin, has earned this entity the nickname of "CAG's alt". Oh look, it's fly hacking. What a Hacker.
