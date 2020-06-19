@@ -59,6 +59,14 @@ class PokedexPage extends Component {
             The peculiar entity Leiti, also known as "LeitiLP", "Leit", "Yeiti", "Yeti", "Latie", "Leetee", "CAG's alt", or "Hacker", is arguably one of the best, if not the best Missile Wars players on the planet. With one swoop in his LeitiLP series, your Leit portal will be Yeiti'd into nothing as if he's a Yeti. For tournaments, he is a Latie, always arriving late to make his opponents more restless and easier to beat, all the while Zor mispronounces his name as "Leetee". CAG, having part of their face in his skin, has earned this entity the nickname of "CAG's alt". Oh look, it's fly hacking. What a Hacker.
           </div>
 
+          <br/>
+          <br/>
+
+          <h1>Weird Fish Person</h1>
+          <div>
+            The species Primates Hominidae Homo Go-bed, also known as JohnStar128 ()&lt;|, is similar to the species Homo Sapien, except it has this weird habit of telling people to "Go bed". Sometimes, he unknowingly says variations of "Go bed" with "undertones" not appropriate for the CubeKrowd audience, such as when he told TNTCreeper10 to go to bed with zorua162. Due to his habit of telling people to "go bed", he has became a developer with the ulterior motive of creating a plugin to spam people with "Go bed" every time java.util.Date notices it is past their bedtime.
+          </div>
+
           <div id="lolwhatanoob" style={{
             marginTop: "200vh",
             marginBottom: "10rem"
