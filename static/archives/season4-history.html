@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Unofficial Ranked MissileWars - trueskill-history-season-4</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/6c6374bad0b0b6d204d8d6dc4a18d820.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/e8acd7d9bf6207f99350ca9f9e23b168.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/3bdef1251a424500c1b3a78dea9b7e57.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/be0060dafb7a0e31d2a1ca17c0708636.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://discordapp.com/assets/8e12fb4f14d9c4592eb8ec9f22337b04.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    white-space: pre-wrap;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.spoiler {
+    border-radius: 3px;
+}
+
+.quote {
+    margin: 0.5em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment-thumbnail {
+    margin-top: 0.3em;
+    max-width: 50%;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+.mention {
+    color: #7289da;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/343063279129853953/964660c6d4d6c46b556c50e58a63d1c2.png" alt="Guild icon" />
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Unofficial Ranked MissileWars</div>
+        <div class="preamble__entry">trueskill-history-season-4</div>
+
+            <div class="preamble__entry preamble__entry--small"></div>
+
+    </div>
+</div>
+
+<div class="chatlog">
+    <div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">27-Jul-19 05:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="604721023799001125" id="message-604721023799001125">
+                <div class="chatlog__content">
+                    <span class="markdown">Indigo (1400, 100) vs TNTCreeper (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Indigo <strong>+52,-14</strong> (1452, 86)
+Team 2 New Rating, RD: TNTCreeper <strong>-52,-14</strong>  (1348, 86)
+
+Evtema (1400, 100) vs Lex (1400, 100)
+Team 2 wins
+Team 1 New Rating, RD: Evtema <strong>-52,-14</strong>  (1348, 86)
+Team 2 New Rating, RD: Lex <strong>+52,-14</strong>  (1452, 86)
+
+Drakan (1400, 100) vs Zorua (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Drakan <strong>+52</strong>,<strong>-14</strong> (1452, 86)
+Team 2 New Rating, RD: Zorua <strong>-52</strong>,<strong>-14</strong> (1348, 86)
+
+Indigo (1452, 86) vs Pingu (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Indigo <strong>+30</strong>,<strong>-8</strong> (1482, 78)
+Team 2 New Rating, RD: Pingu <strong>-41</strong>,<strong>-13</strong> (1359, 87)
+
+Kurusa (1400, 100) vs Lex (1452, 86)
+Team 1 wins
+Team 1 New Rating, RD: Kurusa <strong>+70</strong>,<strong>-17</strong> (1470, 83)
+Team 2 New Rating, RD: Lex <strong>-52</strong>,<strong>-11</strong> (1400, 75)
+
+Evtema (1348, 86) vs Pingu (1359, 87)
+Team 1 wins
+Team 1 New Rating, RD: Evtema <strong>+45</strong>,<strong>-11</strong> (1393, 75)
+Team 2 New Rating, RD: Pingu <strong>-47</strong>,<strong>-12</strong> (1312, 75)
+
+Leiti (1400, 100) vs Indigo (1482, 78)
+Team 1 wins
+Team 1 New Rating, RD: Leiti <strong>+83</strong>,<strong>-20</strong> (1483, 80)
+Team 2 New Rating, RD: Indigo <strong>-51</strong>,<strong>-9</strong> (1431, 69)
+
+Drakan (1452, 86) vs Kurusa (1470, 83)
+Team 1 wins
+Team 1 New Rating, RD: Drakan <strong>+48</strong>,<strong>-12</strong> (1500, 74)
+Team 2 New Rating, RD: Kurusa <strong>-45</strong>,<strong>-11</strong> (1425, 72)
+
+Zorua (1348, 86) vs Lex (1400, 75)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+60</strong>,<strong>-14</strong> (1408, 72)
+Team 2 New Rating, RD: Lex <strong>-45</strong>,<strong>-9</strong> (1355, 66)
+
+Kurusa (1425, 72) vs Evtema (1393, 75)
+Team&#39;s 1 and 2 draw
+Team 1 New Rating, RD: Kurusa <strong>-10</strong>,<strong>-13</strong> (1415, 59)
+Team 2 New Rating, RD: Evtema <strong>+11</strong>,<strong>-15</strong> (1404, 60)
+
+Kurusa (1415, 59) vs Evtema (1404, 60)
+Team 2 wins
+Team 1 New Rating, RD: Kurusa <strong>-28</strong>,<strong>-6</strong> (1387, 53)
+Team 2 New Rating, RD: Evtema <strong>+29</strong>,<strong>-6</strong> (1433, 54)
+
+Zorua (1408, 72) vs Indigo (1431, 69)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+40</strong>,<strong>-9</strong> (1448, 63)
+Team 2 New Rating, RD: Indigo <strong>-37</strong>,<strong>-8</strong> (1394, 61)</span>
+
+                        <span class="chatlog__edited-timestamp" title="27-Jul-19 06:53 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">27-Jul-19 06:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="604748138510811148" id="message-604748138510811148">
+                <div class="chatlog__content">
+                    <span class="markdown">Leiti (1483, 80) vs Drakan (1500, 74)
+Team 1 wins
+Team 1 New Rating, RD: Leiti <strong>+45</strong>,<strong>-11</strong> (1528, 69)
+Team 2 New Rating, RD: Drakan <strong>-38</strong>,<strong>-9</strong> (1462, 65)
+
+Zorua (1448, 63) vs Evtema (1433, 54)
+Team 2 wins
+Team 1 New Rating, RD: Zorua <strong>-33</strong>,<strong>-8</strong> (1415, 55)
+Team 2 New Rating, RD: Evtema <strong>+24</strong>,<strong>-5</strong> (1457, 49)
+
+Drakan (1462, 65) vs Evtema (1457, 49)
+Team 1 wins
+Team 1 New Rating, RD: Drakan <strong>+31</strong>,<strong>-8</strong> (1493, 57)
+Team 2 New Rating, RD: Evtema <strong>-18</strong>,<strong>-3</strong> (1439, 46)
+
+Leiti (1528, 69) vs Drakan (1493, 57)
+Team 1 wins
+Team 1 New Rating, RD: Leiti <strong>+27</strong>,<strong>-8</strong> (1555, 61)
+Team 2 New Rating, RD: Drakan <strong>-18</strong>,<strong>-4</strong> (1475, 53)</span>
+
+                        <span class="chatlog__edited-timestamp" title="27-Jul-19 07:25 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">27-Jul-19 10:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="604799835291254794" id="message-604799835291254794">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong>Result</strong>
+First Place: Leiti
+Second Place: Drakan
+Third Place: Evtema
+
+<strong>Rank Changes</strong>
+Leiti -&gt; Platinum
+Pingu -&gt; Silver
+TNTCreeper -&gt; Silver</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">10-Aug-19 04:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="609779641611452418" id="message-609779641611452418">
+                <div class="chatlog__content">
+                    <span class="markdown">Wizard (1400, 100) vs Marv (1400, 100)
+Team 2 wins
+Team 1 New Rating, RD: Wizard <strong>-52</strong>,<strong>-14</strong> (1348, 86)
+Team 2 New Rating, RD: Marv <strong>+52</strong>,<strong>-14</strong> (1452, 86)
+
+Drakan (1475, 53) vs Pingu (1312, 75)
+Team 1 wins
+Team 1 New Rating, RD: Drakan <strong>+4</strong>,<strong>-1</strong> (1479, 52)
+Team 2 New Rating, RD: Pingu <strong>-8</strong>,<strong>-4</strong> (1304, 71)
+
+CAG (1400, 100) vs TNTCreeper (1348, 86)
+Team&#39;s 1 and 2 draw
+Team 1 New Rating, RD: CAG <strong>-23</strong>,<strong>-26</strong> (1377, 74)
+Team 2 New Rating, RD: TNTCreeper <strong>+17</strong>,<strong>-16</strong> (1365, 70)
+
+Robo (1400, 100) vs Logic (1400, 100)
+Team 2 wins
+Team 1 New Rating, RD: Robo <strong>-52</strong>,<strong>-14</strong> (1348, 86)
+Team 2 New Rating, RD: Logic <strong>+52</strong>,<strong>-14</strong> (1452, 86)
+
+Wizard (1348, 86) vs Pingu (1304, 71)
+Team 1 wins
+Team 1 New Rating, RD: Wizard <strong>+35</strong>,<strong>-11</strong> (1383, 75)
+Team 2 New Rating, RD: Pingu <strong>-24</strong>,<strong>-6</strong> (1280, 65)
+
+Drakan (1479, 52) vs Marv (1452, 86)
+Team 2 wins
+Team 1 New Rating, RD: Drakan <strong>-21</strong>,<strong>-3</strong> (1458, 49)
+Team 2 New Rating, RD: Marv <strong>+58</strong>,<strong>-16</strong> (1510, 70)
+
+Logic (1452, 86) vs CAG (1377, 74)
+Team 2 wins
+Team 1 New Rating, RD: Logic <strong>-67</strong>,<strong>-15</strong> (1385, 71)
+Team 2 New Rating, RD: CAG <strong>+50</strong>,<strong>-9</strong> (1427, 65)
+
+Logic (1385, 71) vs Wizard (1383, 75)
+Team 2 wins
+Team 1 New Rating, RD: Logic <strong>-33</strong>,<strong>-8</strong> (1352, 63)
+Team 2 New Rating, RD: Wizard <strong>+37</strong>,<strong>-9</strong> (1420, 66)
+
+Drakan (1458, 49) vs Robo (1348, 86)
+Team 2 wins
+Team 1 New Rating, RD: Drakan <strong>-29</strong>,<strong>-3</strong> (1429, 46)
+Team 2 New Rating, RD: Robo <strong>+90</strong>,<strong>-19</strong> (1438, 67)
+
+Robo (1438, 67) vs Wizard (1420, 66)
+Team 1 wins
+Team 1 New Rating, RD: Robo <strong>+28</strong>,<strong>-7</strong> (1466, 60)
+Team 2 New Rating, RD: Wizard <strong>-27</strong>,<strong>-7</strong> (1393, 59)
+
+CAG (1427, 65) vs Robo (1466, 60)
+Team 1 wins
+Team 1 New Rating, RD: CAG <strong>+39</strong>,<strong>-8</strong> (1466, 57)
+Team 2 New Rating, RD: Robo <strong>-34</strong>,<strong>-6</strong> (1432, 54)</span>
+
+                        <span class="chatlog__edited-timestamp" title="10-Aug-19 05:26 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">10-Aug-19 05:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="609800008283324416" id="message-609800008283324416">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong>Result</strong>
+First Place: Cag
+Second Place: Robo
+Third place: Marv
+
+<strong>Rank Changes</strong>
+Marv -&gt; Platinum
+TNT -&gt; Gold</span>
+
+                        <span class="chatlog__edited-timestamp" title="10-Aug-19 05:35 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">16-Aug-19 05:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="611975442156748842" id="message-611975442156748842">
+                <div class="chatlog__content">
+                    <span class="markdown">Nyx (1400, 100) vs Mason (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Nyx <strong>+52</strong>,<strong>-14</strong> (1452, 86)
+Team 2 New Rating, RD: Mason <strong>-52</strong>,<strong>-14</strong> (1348, 86)
+
+Drakan (1429, 46) vs t0be (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Drakan <strong>+11</strong>,<strong>-2</strong> (1440, 44)
+Team 2 New Rating, RD: t0be <strong>-52</strong>,<strong>-19</strong> (1348, 81)
+
+Zorua (1415, 55) vs Robo (1432, 54)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+27</strong>,<strong>-5</strong> (1442, 50)
+Team 2 New Rating, RD: Robo <strong>-26</strong>,<strong>-5</strong> (1406, 49)
+
+Nyx (1452, 86) vs CAG (1466, 57)
+Team 1 wins
+Team 1 New Rating, RD: Nyx <strong>+53</strong>,<strong>-15</strong> (1505, 71)
+Team 2 New Rating, RD: CAG <strong>-23</strong>,<strong>-4</strong> (1443, 53)
+
+t0be (1348, 81) vs Robo (1406, 49)
+Team 2 wins
+Team 1 New Rating, RD: t0be <strong>-30</strong>,<strong>-11</strong> (1318, 70)
+Team 2 New Rating, RD: Robo <strong>+11</strong>,<strong>-2</strong> (1417, 47)
+
+Robo (1417, 47) vs CAG (1443, 53)
+Team 1 wins
+Team 1 New Rating, RD: Robo <strong>+22</strong>,<strong>-4</strong> (1439, 43)
+Team 2 New Rating, RD: CAG <strong>-28</strong>,<strong>-5</strong> (1415, 48)
+
+Drakan (1440, 44) vs Zorua (1442, 50)
+Team 2 wins
+Team 1 New Rating, RD: Drakan <strong>-16</strong>,<strong>-3</strong> (1424, 41)
+Team 2 New Rating, RD: Zorua <strong>+21</strong>,<strong>-4</strong> (1463, 46)
+
+Drakan (1424, 41) vs Haccker (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Drakan <strong>+9</strong>,<strong>-1</strong> (1433, 40)
+Team 2 New Rating, RD: Haccker <strong>-55</strong>,<strong>-20</strong> (1345, 80)
+
+Drakan (1433, 40) vs Robo (1439, 43)
+Team 2 wins
+Team 1 New Rating, RD: Drakan <strong>-14</strong>,<strong>-2</strong> (1419, 38)
+Team 2 New Rating, RD: Robo <strong>+16</strong>,<strong>-3</strong> (1455, 40)
+
+Robo (1455, 40) vs Zorua (1463, 46)
+Team 1 wins
+Team 1 New Rating, RD: Robo <strong>+15</strong>,<strong>-3</strong> (1470, 37)
+Team 2 New Rating, RD: Zorua <strong>-20</strong>,<strong>-4</strong> (1443, 42)
+
+Robo (1470, 37) vs Zorua (1443, 42)
+Team 1 wins
+Team 1 New Rating, RD: Robo <strong>+10</strong>,<strong>-2</strong> (1480, 35)
+Team 2 New Rating, RD: Zorua <strong>-13</strong>,<strong>-3</strong> (1430, 39)</span>
+
+                        <span class="chatlog__edited-timestamp" title="16-Aug-19 06:25 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-19 06:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="635179141511249931" id="message-635179141511249931">
+                <div class="chatlog__content">
+                    <span class="markdown">Prozan (1400, 100) vs Trashpanda (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Prozan <strong>+52</strong>,<strong>-14</strong> (1452, 86)
+Team 2 New Rating, RD: Trashpanda <strong>-52</strong>,<strong>-14</strong> (1348, 86)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-19 06:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="635182488486019082" id="message-635182488486019082">
+                <div class="chatlog__content">
+                    <span class="markdown">Llewv (1400, 100) vs TNTCreeper (1365, 70)
+Team 1 wins
+Team 1 New Rating, RD: Llewv <strong>+47</strong>,<strong>-16</strong> (1447, 84)
+Team 2 New Rating, RD: TNTCreeper <strong>-23</strong>,<strong>-5</strong> (1342, 65)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-19 06:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="635184995203547156" id="message-635184995203547156">
+                <div class="chatlog__content">
+                    <span class="markdown">Indigo (1394, 61) vs Evtema (1439, 46)
+Team 1 wins
+Team 1 New Rating, RD: Indigo <strong>+40</strong>,<strong>-8</strong> (1434, 53)
+Team 2 New Rating, RD: Evtema <strong>-23</strong>,<strong>-3</strong> (1416, 43)</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="635186605501579324" id="message-635186605501579324">
+                <div class="chatlog__content">
+                    <span class="markdown">Kurusa (1387, 53) vs Prozan (1452, 86)
+Team 1 wins
+Team 1 New Rating, RD: Kurusa <strong>+27</strong>,<strong>-4</strong> (1414, 49)
+Team 2 New Rating, RD: Prozan <strong>-71</strong>,<strong>-17</strong> (1381, 69)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-19 07:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="635193185437745152" id="message-635193185437745152">
+                <div class="chatlog__content">
+                    <span class="markdown">Prozan (1381, 69) vs TNTCreeper (1342, 65)
+Team 2 wins
+Team 1 New Rating, RD: Prozan <strong>-42</strong>,<strong>-9</strong> (1339, 60)
+Team 2 New Rating, RD: TNTCreeper <strong>+37</strong>,<strong>-7</strong> (1379, 58)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-19 07:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="635199134659248148" id="message-635199134659248148">
+                <div class="chatlog__content">
+                    <span class="markdown">Wizard (1393, 59) vs Logic (1352, 63)
+Team 1 wins
+Team 1 New Rating, RD: Wizard <strong>+19</strong>,<strong>-5</strong> (1412, 54)
+Team 2 New Rating, RD: Logic <strong>-21</strong>,<strong>-6</strong> (1331, 57)</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="635200042923327528" id="message-635200042923327528">
+                <div class="chatlog__content">
+                    <span class="markdown">Kurusa (1414, 49) vs Indigo (1434, 53)
+Team 1 wins
+Team 1 New Rating, RD: Kurusa <strong>+23</strong>,<strong>-4</strong> (1437, 45)
+Team 2 New Rating, RD: Indigo <strong>-27</strong>,<strong>-5</strong> (1407, 48)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-19 07:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="635202840029167617" id="message-635202840029167617">
+                <div class="chatlog__content">
+                    <span class="markdown">Zorua (1430, 39) vs Wizard (1412, 54)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+11</strong>,<strong>-2</strong> (1441, 37)
+Team 2 New Rating, RD: Wizard <strong>-21</strong>,<strong>-5</strong> (1391, 49)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-19 11:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="635254546616287250" id="message-635254546616287250">
+                <div class="chatlog__content">
+                    <span class="markdown">Evtema (1416, 43) vs TNTCreeper (1379, 58)
+Team 1 wins
+Team 1 New Rating, RD: Evtema <strong>+11</strong>,<strong>-2</strong> (1427, 41)
+Team 2 New Rating, RD: TNTCreeper <strong>-20</strong>,<strong>-6</strong> (1359, 52)
+
+Kapa (1400, 100) vs Llewv (1447, 84)
+Team 1 wins
+Team 1 New Rating, RD: Kapa <strong>+69</strong>,<strong>-18</strong> (1469, 82)
+Team 2 New Rating, RD: Llewv <strong>-49</strong>,<strong>-10</strong> (1398, 74)
+
+Kapa (1469, 82) vs Zorua (1441, 37)
+Team 1 wins
+Team 1 New Rating, RD: Kapa <strong>+39</strong>,<strong>-14</strong> (1508, 68)
+Team 2 New Rating, RD: Zorua <strong>-8</strong>,<strong>-1</strong> (1433, 36)
+
+Llewv (1398, 74) vs Trashpanda (1348, 86)
+Team 1 wins
+Team 1 New Rating, RD: Llewv <strong>+24</strong>,<strong>-7</strong> (1422, 67)
+Team 2 New Rating, RD: Trashpanda <strong>-33</strong>,<strong>-11</strong> (1315, 75)
+
+Logic (1331, 57) vs Llewv (1422, 67)
+Team 1 wins
+Team 1 New Rating, RD: Logic <strong>+40</strong>,<strong>-6</strong> (1371, 51)
+Team 2 New Rating, RD: Llewv <strong>-56</strong>,<strong>-10</strong> (1366, 57)
+
+Kapa (1508, 68) vs Kurusa (1437, 45)
+Team 1 wins
+Team 1 New Rating, RD: Kapa <strong>+19</strong>,<strong>-7</strong> (1527, 61)
+Team 2 New Rating, RD: Kurusa <strong>-8</strong>,<strong>-2</strong> (1429, 43)
+
+Indigo (1407, 48) vs Logic (1371, 51)
+Team 1 wins
+Team 1 New Rating, RD: Indigo <strong>+14</strong>,<strong>-3</strong> (1421, 45)
+Team 2 New Rating, RD: Logic <strong>-16</strong>,<strong>-4</strong> (1355, 47)
+
+Zorua (1433, 36) vs Evtema (1427, 41)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+11</strong>,<strong>-2</strong> (1444, 34)
+Team 2 New Rating, RD: Evtema <strong>-15</strong>,<strong>-3</strong> (1412, 38)
+
+Zorua (1444, 34) vs Indigo (1421, 45)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+9</strong>,<strong>-1</strong> (1453, 33)
+Team 2 New Rating, RD: Indigo <strong>-15</strong>,<strong>-3</strong> (1406, 42)
+
+Zorua (1453, 33) vs Kurusa (1429, 43)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+8</strong>,<strong>-1</strong> (1461, 32)
+Team 2 New Rating, RD: Kurusa <strong>-14</strong>,<strong>-3</strong> (1415, 40)
+
+Zorua (1461, 32) vs Kapa (1527, 61)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+13</strong>,<strong>-1</strong> (1474, 31)
+Team 2 New Rating, RD: Kapa <strong>-49</strong>,<strong>-10</strong> (1478, 51)
+
+Zorua (1474, 31) vs Kapa (1478, 51)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+9</strong>,<strong>-1</strong> (1483, 30)
+Team 2 New Rating, RD: Kapa <strong>-24</strong>,<strong>-5</strong> (1454, 46)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/219246319116615682/d9b18ad4cbe74c81e948ad2cf3791914.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ausxh#4011" data-user-id="219246319116615682">Ausxh</span>
+
+
+        <span class="chatlog__timestamp">20-Oct-19 12:12 AM</span>
+
+            <div class="chatlog__message " data-message-id="635269088603537415" id="message-635269088603537415">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong><u>Results</u></strong>
+First Place: <strong>Zorua</strong>
+Second Place: <strong>Kapa</strong>
+Third Place: <strong>Kurusa</strong></span>
+
+                        <span class="chatlog__edited-timestamp" title="20-Oct-19 07:54 AM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/219246319116615682/d9b18ad4cbe74c81e948ad2cf3791914.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ausxh#4011" data-user-id="219246319116615682">Ausxh</span>
+
+
+        <span class="chatlog__timestamp">20-Oct-19 07:52 AM</span>
+
+            <div class="chatlog__message " data-message-id="635384735283150858" id="message-635384735283150858">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong><u>Rank Changes</u></strong>
+Trashpanda: <em>Gold -&gt; Silver</em></span>
+
+                        <span class="chatlog__edited-timestamp" title="20-Oct-19 07:54 AM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-19 04:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="645300037848399874" id="message-645300037848399874">
+                <div class="chatlog__content">
+                    <span class="markdown">Leiti (1555, 61) vs Prozan (1339, 60)
+Team 1 wins
+Team 1 New Rating, RD: Leiti <strong>+2</strong>,<strong>-1</strong> (1557, 60)
+Team 2 New Rating, RD: Prozan <strong>-2</strong>,<strong>-1</strong> (1337, 59)
+
+Indigo (1406, 42) vs eragaurd (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Indigo <strong>+11</strong>,<strong>-1</strong> (1417, 41)
+Team 2 New Rating, RD: eragaurd <strong>-61</strong>,<strong>-21</strong> (1339, 79)
+
+Trashpanda (1315, 75) vs UnWin (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Trashpanda <strong>+48</strong>,<strong>-8</strong> (1363, 67)
+Team 2 New Rating, RD: UnWin <strong>-86</strong>,<strong>-20</strong> (1314, 80)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-19 05:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="645314471094517801" id="message-645314471094517801">
+                <div class="chatlog__content">
+                    <span class="markdown">Aus (1400, 100) vs InfernalShadow7 (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Aus <strong>+52</strong>,<strong>-14</strong> (1452, 86)
+Team 2 New Rating, RD: InfernalShadow7 <strong>-52</strong>,<strong>-14</strong> (1348, 86)
+
+Trashpanda (1363, 67) vs Indigo (1417, 41)
+Team 2 wins
+Team 1 New Rating, RD: Trashpanda <strong>-22</strong>,<strong>-7</strong> (1341, 60)
+Team 2 New Rating, RD: Indigo <strong>+8</strong>,<strong>-2</strong> (1425, 39)
+
+Aus (1452, 86) vs Leiti (1557, 60)
+Team 2 wins
+Team 1 New Rating, RD: Aus <strong>-22</strong>,<strong>-9</strong> (1430, 77)
+Team 2 New Rating, RD: Leiti <strong>+11</strong>,<strong>-3</strong> (1568, 57)
+
+InfernalShadow7 (1348, 86) vs Prozan (1337, 59)
+Team 2 wins
+Team 1 New Rating, RD: InfernalShadow7 <strong>-52</strong>,<strong>-14</strong> (1296, 72)
+Team 2 New Rating, RD: Prozan <strong>+24</strong>,<strong>-4</strong> (1361, 55)
+
+CAG (1415, 48) vs Llewv (1366, 57)
+Team 1 wins
+Team 1 New Rating, RD: CAG <strong>+12</strong>,<strong>-3</strong> (1427, 45)
+Team 2 New Rating, RD: Llewv <strong>-17</strong>,<strong>-5</strong> (1349, 52)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-19 05:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="645317381425594419" id="message-645317381425594419">
+                <div class="chatlog__content">
+                    <span class="markdown">Zorua (1483, 30) vs TNTCreeper (1359, 52)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+2</strong>,<strong>+0</strong> (1485, 30)
+Team 2 New Rating, RD: TNTCreeper <strong>-6</strong>,<strong>-2</strong> (1353, 50)
+
+UnWin (1314, 80) vs eragaurd (1339, 79)
+Team 1 wins
+Team 1 New Rating, RD: UnWin <strong>+45</strong>,<strong>-11</strong> (1359, 69)
+Team 2 New Rating, RD: eragaurd <strong>-44</strong>,<strong>-10</strong> (1295, 69)
+
+CAG (1427, 45) vs Leiti (1568, 57)
+Team 2 wins
+Team 1 New Rating, RD: CAG <strong>-4</strong>,<strong>-1</strong> (1423, 44)
+Team 2 New Rating, RD: Leiti <strong>+6</strong>,<strong>-2</strong> (1574, 55)
+
+Zorua (1485, 30) vs Indigo (1425, 39)
+Team 2 wins
+Team 1 New Rating, RD: Zorua <strong>-14</strong>,<strong>-1</strong> (1471, 29)
+Team 2 New Rating, RD: Indigo <strong>+23</strong>,<strong>-3</strong> (1448, 36)
+
+TNTCreeper (1353, 50) vs Prozan (1361, 55)
+Team 1 wins
+Team 1 New Rating, RD: TNTCreeper <strong>+21</strong>,<strong>-4</strong> (1374, 46)
+Team 2 New Rating, RD: Prozan <strong>-26</strong>,<strong>-6</strong> (1335, 49)
+
+Llewv (1349, 52) vs UnWin (1359, 69)
+Team 1 wins
+Team 1 New Rating, RD: Llewv <strong>+21</strong>,<strong>-4</strong> (1370, 48)
+Team 2 New Rating, RD: UnWin <strong>-38</strong>,<strong>-9</strong> (1321, 60)
+
+Trashpanda (1341, 60) vs TNTCreeper (1374, 46)
+Team 2 wins
+Team 1 New Rating, RD: Trashpanda <strong>-22</strong>,<strong>-6</strong> (1319, 54)
+Team 2 New Rating, RD: TNTCreeper <strong>+13</strong>,<strong>-3</strong> (1387, 43)
+
+Aus (1430, 77) vs Llewv (1370, 48)
+Team&#39;s 1 and 2 draw
+Team 1 New Rating, RD: Aus <strong>-27</strong>,<strong>-20</strong> (1403, 57)
+Team 2 New Rating, RD: Llewv <strong>+10</strong>,<strong>-4</strong> (1380, 44)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-19 05:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="645322009936527370" id="message-645322009936527370">
+                <div class="chatlog__content">
+                    <span class="markdown">Indigo (1448, 36) vs Leiti (1574, 55)
+Team 2 wins
+Team 1 New Rating, RD: Indigo <strong>-3</strong>,<strong>-1</strong> (1445, 35)
+Team 2 New Rating, RD: Leiti <strong>+6</strong>,<strong>-3</strong> (1580, 52)
+
+CAG (1423, 44) vs TNTCreeper (1387, 43)
+Team 1 wins
+Team 1 New Rating, RD: CAG <strong>+12</strong>,<strong>-3</strong> (1435, 41)
+Team 2 New Rating, RD: TNTCreeper <strong>-12</strong>,<strong>-3</strong> (1375, 40)
+
+Aus (1403, 57) vs Llewv (1380, 44)
+Team 2 wins
+Team 1 New Rating, RD: Aus <strong>-32</strong>,<strong>-7</strong> (1371, 50)
+Team 2 New Rating, RD: Llewv <strong>+19</strong>,<strong>-3</strong> (1399, 41)
+
+Zorua (1471, 29) vs Llewv (1399, 41)
+Team 2 wins
+Team 1 New Rating, RD: Zorua <strong>-14</strong>,<strong>-1</strong> (1457, 28)
+Team 2 New Rating, RD: Llewv <strong>+28</strong>,<strong>-4</strong> (1427, 37)</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="645323430467469342" id="message-645323430467469342">
+                <div class="chatlog__content">
+                    <span class="markdown">CAG (1435, 41) vs Llewv (1427, 37)
+Team 1 wins
+Team 1 New Rating, RD: CAG <strong>+14</strong>,<strong>-3</strong> (1449, 38)
+Team 2 New Rating, RD: Llewv <strong>-12</strong>,<strong>-2</strong> (1415, 35)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-19 06:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="645326514518360097" id="message-645326514518360097">
+                <div class="chatlog__content">
+                    <span class="markdown">CAG (1449, 38) vs Indigo (1445, 35)
+Team 2 wins
+Team 1 New Rating, RD: CAG <strong>-14</strong>,<strong>-2</strong> (1435, 36)
+Team 2 New Rating, RD: Indigo <strong>+12</strong>,<strong>-2</strong> (1457, 33)
+
+Leiti (1580, 52) vs Indigo (1457, 33)
+Team 1 wins
+Team 1 New Rating, RD: Leiti <strong>+6</strong>,<strong>-2</strong> (1586, 50)
+Team 2 New Rating, RD: Indigo <strong>-2</strong>,<strong>-1</strong> (1455, 32)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-19 06:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="645328437623390255" id="message-645328437623390255">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong>Results</strong>
+First Place: Leiti
+Second Place: Indigo
+Third Place: Cag</span>
+
+                        <span class="chatlog__edited-timestamp" title="16-Nov-19 06:25 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/257227308643909632/d29284f226721b890a460187464df643.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kurusa#3850" data-user-id="257227308643909632">Kurusa</span>
+
+
+        <span class="chatlog__timestamp">16-Nov-19 07:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="645340037713756173" id="message-645340037713756173">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong>Rank Changes</strong>
+InfernalShadow7 <em>Gold -&gt; Silver</em>
+Eragaurd <em>Gold -&gt; Silver</em>
+Prozan <em>Gold -&gt; Silver</em></span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-19 04:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="652904790375792680" id="message-652904790375792680">
+                <div class="chatlog__content">
+                    <span class="markdown">Llewv (1415, 35) vs Faquarl (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Llewv <strong>+7</strong>,<strong>-1</strong> (1422, 34)
+Team 2 New Rating, RD: Faquarl <strong>-59</strong>,<strong>-21</strong> (1341, 79)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-19 04:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="652910518457204742" id="message-652910518457204742">
+                <div class="chatlog__content">
+                    <span class="markdown">Prozan (1335, 49) vs Wizard (1393, 59)
+Team 1 wins
+Team 1 New Rating, RD: Prozan <strong>+28</strong>,<strong>-4</strong> (1363, 45)
+Team 2 New Rating, RD: Wizard <strong>-41</strong>,<strong>-8</strong> (1352, 51)
+
+CAG (1435, 36) vs Eon (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: CAG <strong>+7</strong>,<strong>-1</strong> (1442, 35)
+Team 2 New Rating, RD: Eon <strong>-51</strong>,<strong>-20</strong> (1349, 80)
+
+TNTCreeper (1375, 40) vs Llewv (1422, 34)
+Team 2 wins
+Team 1 New Rating, RD: TNTCreeper <strong>-9</strong>,<strong>-2</strong> (1366, 38)
+Team 2 New Rating, RD: Llewv <strong>+7</strong>,<strong>-1</strong> (1429, 33)
+
+AnonymousGamrr (1400, 100) vs CAG (1442, 35)
+Team 1 wins
+Team 1 New Rating, RD: AnonymousGamrr <strong>+82</strong>,<strong>-25</strong> (1482, 75)
+Team 2 New Rating, RD: CAG <strong>-10</strong>,<strong>-1</strong> (1432, 34)
+
+Zorua (1457, 28) vs Prozan (1363, 45)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+3</strong>,<strong>-1</strong> (1460, 27)
+Team 2 New Rating, RD: Prozan <strong>-6</strong>,<strong>-2</strong> (1357, 43)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-19 04:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="652914068251869235" id="message-652914068251869235">
+                <div class="chatlog__content">
+                    <span class="markdown">Llewv (1429, 33) vs AnonymousGamrr (1482, 75)
+Team 1 wins
+Team 1 New Rating, RD: Llewv <strong>+12</strong>,<strong>-1</strong> (1441, 32)
+Team 2 New Rating, RD: AnonymousGamrr <strong>-60</strong>,<strong>-15</strong> (1422, 60)
+
+CAG (1432, 34) vs Wizard (1352, 51)
+Team 1 wins
+Team 1 New Rating, RD: CAG <strong>+5</strong>,<strong>-1</strong> (1437, 33)
+Team 2 New Rating, RD: Wizard <strong>-10</strong>,<strong>-3</strong> (1342, 48)
+
+Aus (1371, 50) vs Chronos (1400, 100)
+Team 1 wins
+Team 1 New Rating, RD: Aus <strong>+18</strong>,<strong>-3</strong> (1389, 47)
+Team 2 New Rating, RD: Chronos <strong>-73</strong>,<strong>-22</strong> (1327, 78)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-19 05:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="652917676829573122" id="message-652917676829573122">
+                <div class="chatlog__content">
+                    <span class="markdown">CAG (1437, 33) vs TNTCreeper (1366, 38)
+Team 1 wins
+Team 1 New Rating, RD: CAG <strong>+5</strong>,<strong>-1</strong> (1442, 32)
+Team 2 New Rating, RD: TNTCreeper <strong>-6</strong>,<strong>-2</strong> (1360, 36)
+
+Eon (1349, 80) vs Prozan (1357, 43)
+Team 1 wins
+Team 1 New Rating, RD: Eon <strong>+48</strong>,<strong>-14</strong> (1397, 66)
+Team 2 New Rating, RD: Prozan <strong>-14</strong>,<strong>-2</strong> (1343, 41)
+
+Zorua (1460, 27) vs Aus (1389, 47)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+3</strong>,<strong>-1</strong> (1463, 26)
+Team 2 New Rating, RD: Aus <strong>-10</strong>,<strong>-3</strong> (1379, 44)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-19 05:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="652922478049493013" id="message-652922478049493013">
+                <div class="chatlog__content">
+                    <span class="markdown">Aus (1379, 44) vs CAG (1442, 32)
+Team 2 wins
+Team 1 New Rating, RD: Aus <strong>-9</strong>,<strong>-3</strong> (1370, 41)
+Team 2 New Rating, RD: CAG <strong>+5</strong>,<strong>-1</strong> (1447, 31)
+
+Chronos (1327, 78) vs Faquarl (1341, 79)
+Team 2 wins
+Team 1 New Rating, RD: Chronos <strong>-35</strong>,<strong>-9</strong> (1292, 69)
+Team 2 New Rating, RD: Faquarl <strong>+36</strong>,<strong>-9</strong> (1377, 70)
+
+Zorua (1463, 26) vs Llewv (1441, 32)
+Team 1 wins
+Team 1 New Rating, RD: Zorua <strong>+6</strong>,<strong>-1</strong> (1469, 25)
+Team 2 New Rating, RD: Llewv <strong>-8</strong>,<strong>-1</strong> (1433, 31)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-19 05:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="652924778235035648" id="message-652924778235035648">
+                <div class="chatlog__content">
+                    <span class="markdown">Faquarl (1377, 70) vs Eon (1397, 66)
+Team 2 wins
+Team 1 New Rating, RD: Faquarl <strong>-29</strong>,<strong>-8</strong> (1348, 62)
+Team 2 New Rating, RD: Eon <strong>+26</strong>,<strong>-6</strong> (1423, 60)
+
+Eon (1423, 60) vs AnonymousGamrr (1422, 60)
+Team 2 wins
+Team 1 New Rating, RD: Eon <strong>-27</strong>,<strong>-6</strong> (1396, 54)
+Team 2 New Rating, RD: AnonymousGamrr <strong>+27</strong>,<strong>-6</strong> (1449, 54)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-19 05:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="652927221257732101" id="message-652927221257732101">
+                <div class="chatlog__content">
+                    <span class="markdown">AnonymousGamrr (1449, 54) vs CAG (1447, 31)
+Team 1 wins
+Team 1 New Rating, RD: AnonymousGamrr <strong>+25</strong>,<strong>-6</strong> (1474, 48)
+Team 2 New Rating, RD: CAG <strong>-8</strong>,<strong>-1</strong> (1439, 30)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-19 06:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="652933755089977405" id="message-652933755089977405">
+                <div class="chatlog__content">
+                    <span class="markdown">Llewv (1433, 31) vs AnonymousGamrr (1489, 44)
+Team 1 wins
+Team 1 New Rating, RD: Llewv <strong>+14</strong>,<strong>-1</strong> (1447, 30)
+Team 2 New Rating, RD: AnonymousGamrr <strong>-28</strong>,<strong>-4</strong> (1461, 40)
+
+Llewv (1447, 30) vs Zorua (1469, 25)
+Team 2 wins
+Team 1 New Rating, RD: Llewv <strong>-7</strong>,<strong>-1</strong> (1440, 29)
+Team 2 New Rating, RD: Zorua <strong>+5</strong>,<strong>-1</strong> (1474, 24)</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/219246319116615682/d9b18ad4cbe74c81e948ad2cf3791914.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ausxh#4011" data-user-id="219246319116615682">Ausxh</span>
+
+
+        <span class="chatlog__timestamp">07-Dec-19 06:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="652944210458312746" id="message-652944210458312746">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong><u>Results</u></strong>
+<strong>First</strong>: Zorua
+<strong>Second</strong>: Llewv
+<strong>Third</strong>: AnonymousGamrr</span>
+
+                        <span class="chatlog__edited-timestamp" title="07-Dec-19 06:47 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ShadowZorua#4911" data-user-id="163735159722475520">ShadowZorua</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-19 08:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="653325827160670270" id="message-653325827160670270">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong>Rank Changes</strong>
+Faquarl <em>Gold -&gt; Silver</em>
+Chronos <em>Gold -&gt; Silver</em>
+Wizard <em>Gold -&gt; Silver</em></span>
+
+                        <span class="chatlog__edited-timestamp" title="08-Dec-19 08:12 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">14-Dec-19 05:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="655460676420108301" id="message-655460676420108301">
+                <div class="chatlog__content">
+                    <span class="markdown">CAG (1433, 29), Trashpanda (1319, 54) vs Llewv (1440, 29), eragaurd (1295, 69)
+Team 1 wins
+Team 1 New Rating, RD: CAG <strong>+5</strong>,<strong>+0</strong> (1438, 29), Trashpanda <strong>+16</strong>,<strong>-3</strong> (1335, 51)
+Team 2 New Rating, RD: Llewv <strong>-5</strong>,<strong>+0</strong> (1435, 29), eragaurd <strong>-26</strong>,<strong>-5</strong> (1269, 64)
+
+Basil (1400, 100), TNTCreeper (1360, 36) vs Llewv (1435, 29), eragaurd (1269, 64)
+Team 1 wins
+Team 1 New Rating, RD: Basil <strong>+38</strong>,<strong>-11</strong> (1438, 89), TNTCreeper <strong>+5</strong>,<strong>-1</strong> (1365, 35)
+Team 2 New Rating, RD: Llewv <strong>-3</strong>,<strong>+0</strong> (1432, 29), eragaurd <strong>-16</strong>,<strong>-3</strong> (1253, 61)
+
+Basil (1438, 89), TNTCreeper (1365, 35) vs CAG (1438, 29), Trashpanda (1335, 51)
+Team 1 wins
+Team 1 New Rating, RD: Basil <strong>+37</strong>,<strong>-10</strong> (1475, 79), TNTCreeper <strong>+6</strong>,<strong>-1</strong> (1371, 34)
+Team 2 New Rating, RD: CAG <strong>-4</strong>,<strong>+0</strong> (1434, 29), Trashpanda <strong>-12</strong>,<strong>-2</strong> (1323, 49)
+
+Llewv (1432, 29), eragaurd (1253, 61) vs CAG (1434, 29), Trashpanda (1323, 49)
+Team&#39;s 1 and 2 draw
+Team 1 New Rating, RD: Llewv <strong>+3</strong>,<strong>-1</strong> (1435, 28), eragaurd <strong>+15</strong>,<strong>-7</strong> (1268, 54)
+Team 2 New Rating, RD: CAG <strong>-3</strong>,<strong>-1</strong> (1431, 28), Trashpanda <strong>-10</strong>,<strong>-3</strong> (1313, 46)
+
+CAG (1431, 28), Trashpanda (1313, 46) vs Basil (1475, 79), TNTCreeper (1371, 34)
+Team 1 wins
+Team 1 New Rating, RD: CAG <strong>+7</strong>,<strong>+0</strong> (1438, 28), Trashpanda <strong>+20</strong>,<strong>-2</strong> (1333, 44)
+Team 2 New Rating, RD: Basil <strong>-59</strong>,<strong>-10</strong> (1416, 69), TNTCreeper <strong>-11</strong>,<strong>-1</strong> (1360, 33)
+
+Basil (1416, 69), TNTCreeper (1360, 33) vs Llewv (1435, 28), eragaurd (1268, 54)
+Team 1 wins
+Team 1 New Rating, RD: Basil <strong>+18</strong>,<strong>-5</strong> (1434, 64), TNTCreeper <strong>+4</strong>,<strong>+0</strong> (1364, 33)
+Team 2 New Rating, RD: Llewv <strong>-3</strong>,<strong>+0</strong> (1432, 28), eragaurd <strong>-11</strong>,<strong>-2</strong> (1257, 52)</span>
+
+                        <span class="chatlog__edited-timestamp" title="14-Dec-19 06:01 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">14-Dec-19 06:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="655470069437956096" id="message-655470069437956096">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong><u>Results</u></strong>
+<strong>First</strong>: TNTCreeper &amp; Basil
+<strong>Second</strong>: CAG &amp; Trashpanda
+<strong>Third</strong>: Eragaurd &amp; Llew</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-19 06:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="660549759421120516" id="message-660549759421120516">
+                <div class="chatlog__content">
+                    <span class="markdown">-
+Trashpanda (1333, 44), vs Faquarl (1348, 62),
+Team 1 wins
+Team 1 New Rating, RD:
+Trashpanda <strong>+18</strong>,<strong>-2</strong> (1351, 42),
+Team 2 New Rating, RD:
+Faquarl <strong>-34</strong>,<strong>-7</strong> (1314, 55),
+-
+Skyttesen (1400, 100), vs Zorua (1474, 24),
+Team 1 wins
+Team 1 New Rating, RD:
+Skyttesen <strong>+100,-28</strong> (1500, 72),
+Team 2 New Rating, RD:
+Zorua <strong>-5,+0</strong> (1469, 24),
+-
+Prozan (1343, 41), vs Drakan (1419, 38),
+Team 2 wins
+Team 1 New Rating, RD:
+Prozan <strong>-6,-1</strong> (1337, 40),
+Team 2 New Rating, RD:
+Drakan <strong>+6,-1</strong> (1425, 37),
+-
+eragaurd (1257, 52), vs Trashpanda (1351, 42),
+Team 2 wins
+Team 1 New Rating, RD:
+eragaurd <strong>-8,-3</strong> (1249, 49),
+Team 2 New Rating, RD:
+Trashpanda <strong>+6,-1</strong> (1357, 41),
+-
+TNTCreeper (1364, 33), vs Drakan (1426, 37),
+Team 1 wins
+Team 1 New Rating, RD:
+TNTCreeper <strong>+17,-1</strong> (1381, 32),
+Team 2 New Rating, RD:
+Drakan <strong>-21,-2</strong> (1404, 35),
+-
+Zorua (1469, 24), vs Faquarl (1314, 55),
+Team 2 wins
+Team 1 New Rating, RD:
+Zorua <strong>-13,+0</strong> (1456, 24),
+Team 2 New Rating, RD:
+Faquarl <strong>+70,-9</strong> (1384, 46),</span>
+
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="660550351698657291" id="message-660550351698657291">
+                <div class="chatlog__content">
+                    <span class="markdown">-
+Drakan (1414, 34), vs Trashpanda (1357, 41),
+Team&#39;s 1 and 2 draw
+Team 1 New Rating, RD:
+Drakan <strong>-8,-2</strong> (1406, 32),
+Team 2 New Rating, RD:
+Trashpanda <strong>+13,-4</strong> (1370, 37),
+-
+Trashpanda (1370, 37), vs Drakan (1406, 32),
+Team 2 wins
+Team 1 New Rating, RD:
+Trashpanda <strong>-9,-1</strong> (1361, 36),
+Team 2 New Rating, RD:
+Drakan <strong>+7,-1</strong> (1413, 31),
+-
+TNTCreeper (1381, 32), vs Pigo (1400, 100),
+Team 1 wins
+Team 1 New Rating, RD:
+TNTCreeper <strong>+8,+0</strong> (1389, 32),
+Team 2 New Rating, RD:
+Pigo <strong>-72,-23</strong> (1328, 77),
+-
+Trashpanda (1361, 36), vs Wizard (1342, 48),
+Team 2 wins
+Team 1 New Rating, RD:
+Trashpanda <strong>-13,-1</strong> (1348, 35),
+Team 2 New Rating, RD:
+Wizard <strong>+24,-4</strong> (1366, 44),
+-
+TNTCreeper (1389, 32), vs Skyttesen (1501, 72),
+Team 2 wins
+Team 1 New Rating, RD:
+TNTCreeper <strong>-2,+0</strong> (1387, 32),
+Team 2 New Rating, RD:
+Skyttesen <strong>+14,-6</strong> (1514, 66),
+-
+Pigo (1328, 77), vs Prozan (1337, 40),
+Team 1 wins
+Team 1 New Rating, RD:
+Pigo <strong>+47,-13</strong> (1375, 64),
+Team 2 New Rating, RD:
+Prozan <strong>-12,-1</strong> (1325, 39),
+-
+eragaurd (1249, 49), vs Pigo (1375, 64),
+Team 2 wins
+Team 1 New Rating, RD:
+eragaurd <strong>-5,-1</strong> (1244, 48),
+Team 2 New Rating, RD:
+Pigo <strong>+10,-3</strong> (1385, 61),
+-
+Wizard (1366, 44), vs Skyttesen (1514, 66),
+Team 1 wins
+Team 1 New Rating, RD:
+Wizard <strong>+35,-3</strong> (1401, 41),
+Team 2 New Rating, RD:
+Skyttesen <strong>-77,-11</strong> (1437, 55),</span>
+
+                        <span class="chatlog__edited-timestamp" title="28-Dec-19 06:31 PM">(edited)</span>
+                </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="660551744496992286" id="message-660551744496992286">
+                <div class="chatlog__content">
+                    <span class="markdown">-
+Drakan (1413, 31), vs Faquarl (1368, 43),
+Team 1 wins
+Team 1 New Rating, RD:
+Drakan <strong>+6,-1 </strong>(1419, 30),
+Team 2 New Rating, RD:
+Faquarl -11,-2 (1357, 41),
+-
+Pigo (1385, 62), vs Wizard (1401, 41),
+Team 2 wins
+Team 1 New Rating, RD:
+Pigo <strong>-26,-7</strong> (1359, 54),
+Team 2 New Rating, RD:
+Wizard <strong>+12,-2</strong> (1413, 39),
+-
+Drakan (1419, 30), vs TNTCreeper (1387, 32),
+Team 1 wins
+Team 1 New Rating, RD:
+Drakan <strong>+7,-1</strong> (1426, 29),
+Team 2 New Rating, RD:
+TNTCreeper <strong>-7,-1</strong> (1380, 31),
+-
+Drakan (1426, 30), vs Skyttesen (1437, 55),
+Team 2 wins
+Team 1 New Rating, RD:
+Drakan <strong>-6,+0</strong> (1420, 29),
+Team 2 New Rating, RD:
+Skyttesen <strong>+25,-6</strong> (1462, 49),
+-
+Skyttesen (1462, 49), vs Wizard (1413, 39),
+Team 1 wins
+Team 1 New Rating, RD:
+Skyttesen <strong>+14,-3</strong> (1476, 46),
+Team 2 New Rating, RD:
+Wizard <strong>-8,-1</strong> (1405, 38),
+-
+Skyttesen (1476, 46), vs Wizard (1405, 38),
+Team 1 wins
+Team 1 New Rating, RD:
+Skyttesen <strong>+10,-2 </strong>(1486, 44),
+Team 2 New Rating, RD:
+Wizard <strong>-6,-1</strong> (1399, 37),
+-</span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div><div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/266330899627376641/837730903a5a51033018bc0d7325cf2c.png" alt="Avatar" />
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drakan#6551" data-user-id="266330899627376641">Drakan</span>
+
+
+        <span class="chatlog__timestamp">28-Dec-19 06:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="660554198403776527" id="message-660554198403776527">
+                <div class="chatlog__content">
+                    <span class="markdown"><strong><u>Result</u></strong>
+First Place: Sky
+Second Place: Wizard
+Third Place: Drakan
+
+<strong>Rank Changes</strong>
+eragaurd: <em>Silver</em>-&gt; <em>Bronze</em>
+Wizard: <em>Silver</em> -&gt; <em>Gold</em>
+Faquarl: <em>Silver</em> -&gt; <em>Gold</em></span>
+
+                </div>
+
+
+
+            </div>
+    </div>
+</div>
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 41 message(s)</div>
+</div>
+
+</body>
+</html>
