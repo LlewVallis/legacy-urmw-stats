@@ -22,12 +22,12 @@ class MatchData extends Component {
         const team1 = this.state.team1
         const team2 = this.state.team2
 
-        const trueskillEnv = new TrueSkill(1550, null, null, null, 0.05)
+        const trueskillEnv = new TrueSkill(1475, null, null, null, 0.05)
 
         // These cannot be set in the constructor due to a buggy implementation
         trueskillEnv.sigma = 100
         trueskillEnv.beta = 50
-        trueskillEnv.tau = 10
+        trueskillEnv.tau = 5
 
         let team1WinDeltas = []
         let team2WinDeltas = []
