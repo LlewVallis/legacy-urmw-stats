@@ -27,6 +27,17 @@ class IndexPage extends Component {
               maxWidth: 960,
             }}
           >
+            <div style={{
+              border: "0.5rem solid #b3003c",
+              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              padding: "2rem",
+            }}>
+              <h1>⚠️&nbsp;&nbsp;&nbsp;A new version of the site is available</h1>
+              <p>
+                This site is no longer supported, please migrate to the new and improved version at <a href="http://168.119.54.244">http://168.119.54.244</a>.
+              </p>
+            </div>
+
             <Breaker />
 
             <h1>What is this?</h1>

@@ -7,21 +7,22 @@
   "dependencies": {
     "chart.js": "^2.9.3",
     "chartjs-plugin-error-bars": "^1.2.2",
+    "core-js": "^3.6.5",
     "d3-scale-chromatic": "^1.5.0",
     "fuse.js": "^3.6.1",
-    "gatsby": "^2.19.34",
-    "gatsby-plugin-manifest": "^2.2.45",
-    "gatsby-plugin-offline": "^3.0.38",
-    "gatsby-plugin-react-helmet": "^3.1.23",
+    "gatsby": "^2.24.63",
+    "gatsby-plugin-manifest": "^2.4.30",
+    "gatsby-plugin-offline": "^3.2.28",
+    "gatsby-plugin-react-helmet": "^3.3.11",
     "github-api": "^3.3.0",
     "jmespath": "^0.15.0",
     "prop-types": "^15.7.2",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
     "react-json-tree": "^0.11.2",
-    "ts-trueskill": "^2.5.4",
-    "typescript": "^3.8.3"
+    "ts-trueskill": "^2.5.5",
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
     "prettier": "^1.19.1"
