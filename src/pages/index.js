@@ -34,7 +34,7 @@ class IndexPage extends Component {
             }}>
               <h1>⚠️&nbsp;&nbsp;&nbsp;A new version of the site is available</h1>
               <p>
-                This site is no longer supported, please migrate to the new and improved version at <a href="http://168.119.54.244">http://168.119.54.244</a>.
+                This site is no longer supported, please migrate to the new and improved version at <a href="https://urmw.live">https://urmw.live</a>.
               </p>
             </div>
 
